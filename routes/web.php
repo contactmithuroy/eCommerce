@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CategoryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,3 +21,5 @@ Route::get('/', function () {
 // Route::get('/admin',[AdminController::class,'index']);
 Route::get('/login',[AdminController::class,'login']);
 Route::post('admin/auth',[AdminController::class,'auth'])->name('admin.auth');
+Route::get('admin/dashboard',[AdminController::class,'dashboard'])->name('admin.dashboard');
+Route::get('admin/category',[CategoryController::class,'category'])->name('admin.category');

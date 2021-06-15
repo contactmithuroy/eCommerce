@@ -27,25 +27,18 @@ class AdminController extends Controller
             $request->session()->put('ADMIN_ID',$result[0]->id);
 
             Session::flash('success','Login successfully');
-            return redirect('/dashboard');
+            return redirect('admin/dashboard');
 
         }else{
             Session::flash('error', 'Please enter valid login details');
             return redirect('/login');
         }
-        //============================================================================
-        // if ((Hash::check($result->password, $hashedPassword)))
-        //     {
-        //        echo "hi";
-        //     }else{
-        //         echo "no";
-        //     }
-        // $password = Hash::make('aaaaaaaa');
-        // echo $password;
-        // echo "<pre>";
-        // echo ($result);
-
     }
+    public function dashboard()
+    {
+        return view('admin.dashboard');
+    }
+
 
 }
     
