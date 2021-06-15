@@ -1,0 +1,15 @@
+Features:
+
+1. Category
+    Multiple Level Category
+2. Banner
+3. Coupon Code
+    Percentage
+    Fix Price
+4. Product
+    Product Attributes with Color and Size
+    Payment Gateway
+    COD
+5. Contact Us
+6. Product Review
+7. Setting
