@@ -18,8 +18,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::group(['middleware'=>'admin_auth'],function(){
+    
+    Route::get('admin/dashboard',[AdminController::class,'dashboard'])->name('admin.dashboard');
+    Route::get('admin/category',[CategoryController::class,'index'])->name('category.index');
+    Route::get('admin/add-category',[CategoryController::class,'create'])->name('category.add');
+
+});
 // Route::get('/admin',[AdminController::class,'index']);
 Route::get('/login',[AdminController::class,'login']);
 Route::post('admin/auth',[AdminController::class,'auth'])->name('admin.auth');
-Route::get('admin/dashboard',[AdminController::class,'dashboard'])->name('admin.dashboard');
-Route::get('admin/category',[CategoryController::class,'category'])->name('admin.category');
+
+
