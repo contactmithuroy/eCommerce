@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CouponController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,6 +29,7 @@ Route::group(['middleware'=>'admin_auth'],function(){
     Route::delete('admin/category/{category}',[CategoryController::class,'destroy'])->name('category.destroy');
     Route::get('admin/category/edit/{category}', [CategoryController::class,'edit'])->name('category.edit');
     Route::put('admin/category/update', [CategoryController::class,'update'])->name('category.update');
+    Route::resource('admin/coupon',CouponController::class);
 });
 // Route::get('/admin',[AdminController::class,'index']);
 Route::get('/login',[AdminController::class,'login'])->name('login');

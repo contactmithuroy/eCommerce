@@ -8,7 +8,7 @@
    
 
     <!-- Title Page-->
-    <title>Dashboard</title>
+    <title>@yield('page_title')</title>
 
     <!-- Fontfaces CSS-->
     <link href="{{ asset('admin') }}/css/font-face.css" rel="stylesheet" media="all">
@@ -56,6 +56,10 @@
                                 <i class="fas fa-chart-bar"></i>Category</a>
                         </li>
                         <li>
+                            <a href="{{ route('coupon.index') }}">
+                                <i class="fas fa-chart-bar"></i>Coupon</a>
+                        </li>
+                        <li>
                             <a href="{{ route('admin.logout') }}">
                                 <i class="fas fa-sign-out-alt"></i>Logout</a>
                         </li>
@@ -92,7 +96,10 @@
                             <a href="{{ route('category.index') }}">
                                 <i class="fas fa-chart-bar"></i>Category</a>
                         </li>
-
+                        <li>
+                            <a href="{{ route('coupon.index') }}">
+                                <i class="fas fa-chart-bar"></i>Coupon</a>
+                        </li>
                         <li>
                             <a href="{{ route('admin.logout') }}">
                                 <i class="fas fa-sign-out-alt"></i>Logout</a>
