@@ -34,6 +34,9 @@
                     <div class="login-content">
                         <div class="login-logo">
                             <a href="#">
+                                
+                                {{ Config::get('constants.site_name') }}
+
                                 <img src="{{ asset('admin') }}/images/icon/logo.png" alt="CoolAdmin">
                             </a>
                         </div>

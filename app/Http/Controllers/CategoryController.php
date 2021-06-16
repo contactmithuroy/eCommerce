@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Session;
 use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -14,7 +16,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('admin.category.index');
+        $categories = Category::all();
+        return view('admin.category.index',compact('categories'));
     }
 
     /**
@@ -35,7 +38,22 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'=>'required'
+        ]);
+
+        $category = new Category();
+        $category->name = ucfirst($request->name);
+        $category->slug = Str::slug($request->name,'-');
+
+        if(Category::whereSlug($category->slug)->exists() ){
+            $category->slug = "{$category->slug}_" . rand(0,500);
+        }
+        $category->save();
+        // Session::flash('success','Category has been created successfully!');
+        // return redirect()->back();
+        return response()->json(TRUE);
+
     }
 
     /**
@@ -57,7 +75,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('admin.category.edit',compact('category'));
     }
 
     /**
@@ -67,9 +85,23 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+            'name'=>'required'
+        ]);
+
+        if($category = Category::find($request->id)){
+            $category->name = ucfirst($request->name);
+            $category->slug = Str::slug($request->name,'-');
+    
+            if(Category::whereSlug($category->slug)->exists() ){
+                $category->slug = "{$category->slug}_" . rand(0,500);
+            }
+            $category->save();
+            return response()->json(TRUE);
+        }
+
     }
 
     /**
@@ -80,6 +112,10 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        if($category){
+            $category->delete();
+            Session::flash('success','Category has been delete successfully!');
+            return redirect()->route('category.index');
+        }
     }
 }

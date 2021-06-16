@@ -23,7 +23,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
-
+    @yield('style')
 </head>
 
 <body class="animsition">
@@ -56,8 +56,8 @@
                                 <i class="fas fa-chart-bar"></i>Category</a>
                         </li>
                         <li>
-                            <a href="form.html">
-                                <i class="far fa-check-square"></i>Forms</a>
+                            <a href="{{ route('admin.logout') }}">
+                                <i class="fas fa-sign-out-alt"></i>Logout</a>
                         </li>
                         <li>
                             <a href="calendar.html">
@@ -92,6 +92,12 @@
                             <a href="{{ route('category.index') }}">
                                 <i class="fas fa-chart-bar"></i>Category</a>
                         </li>
+
+                        <li>
+                            <a href="{{ route('admin.logout') }}">
+                                <i class="fas fa-sign-out-alt"></i>Logout</a>
+                        </li>
+
                         <li>
                             <a href="table.html">
                                 <i class="fas fa-table"></i>Tables</a>
@@ -167,7 +173,7 @@
                                             <div class="info clearfix">
                                                 <div class="image">
                                                     <a href="#">
-                                                        <img src="images/icon/avatar-01.jpg" alt="John Doe" />
+                                                        <img src="{{ asset('admin') }}/images/icon/avatar-01.jpg" alt="John Doe" />
                                                     </a>
                                                 </div>
                                                 <div class="content">
@@ -189,8 +195,8 @@
 
                                             </div>
                                             <div class="account-dropdown__footer">
-                                                <a href="#">
-                                                    <i class="zmdi zmdi-power"></i>Logout</a>
+                                                <a href="{{ route('admin.logout') }}">
+                                                    <i class="fas fa-sign-out-alt"></i>Logout</a>
                                             </div>
                                         </div>
                                     </div>
@@ -238,7 +244,7 @@
     <script src="{{ asset('admin') }}/vendor/wow/wow.min.js"></script>
     <!-- Main JS-->
     <script src="{{ asset('admin') }}/js/main.js"></script>
-
+    @yield('script')
     {{-- toster success massage --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script>
