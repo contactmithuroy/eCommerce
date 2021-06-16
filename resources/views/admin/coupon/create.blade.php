@@ -1,5 +1,6 @@
 @extends('admin.layout');
 @section('page_title','Add Coupon')
+@section('coupon_select','active')
 @section('container')
 <!-- Main content -->
 <div class="row">
@@ -102,9 +103,3 @@
     });
 </script>
 @endsection
-{{-- $('option').attr('selected', false); 
-document.getElementById('myform').reset();
-$('#formID')[0].reset(); // Reset all form fields
-$('form#search-form').reset();
-$('.all_fields').val('');
---}}

@@ -1,5 +1,6 @@
 @extends('admin.layout');
 @section('page_title','Update coupon')
+@section('coupon_select','active')
 @section('container')
 <!-- Main content -->
 <div class="row">

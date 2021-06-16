@@ -1,5 +1,6 @@
 @extends('admin.layout');
 @section('page_title','Add Category')
+@section('category_select','active')
 @section('container')
 {{-- <div class="content-header">
     <div class="container-fluid">

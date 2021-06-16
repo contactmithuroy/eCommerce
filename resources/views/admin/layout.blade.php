@@ -88,39 +88,24 @@
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
-                        <li>
+                        <li class="@yield('dashboard_select')">
                             <a href="{{ route('admin.dashboard') }}">
                                 <i class="fas fa-tachometer-alt"></i>Dashboard</a>
                         </li>
-                        <li>
+                        <li class="@yield('category_select')">
                             <a href="{{ route('category.index') }}">
-                                <i class="fas fa-chart-bar"></i>Category</a>
+                                <i class="fas fa-list"></i>Category</a>
                         </li>
-                        <li>
+                        <li class="@yield('coupon_select')">
                             <a href="{{ route('coupon.index') }}">
-                                <i class="fas fa-chart-bar"></i>Coupon</a>
+                                <i class="fas fa-tags"></i>Coupon</a>
                         </li>
                         <li>
                             <a href="{{ route('admin.logout') }}">
                                 <i class="fas fa-sign-out-alt"></i>Logout</a>
                         </li>
 
-                        <li>
-                            <a href="table.html">
-                                <i class="fas fa-table"></i>Tables</a>
-                        </li>
-                        <li>
-                            <a href="form.html">
-                                <i class="far fa-check-square"></i>Forms</a>
-                        </li>
-                        <li>
-                            <a href="calendar.html">
-                                <i class="fas fa-calendar-alt"></i>Calendar</a>
-                        </li>
-                        <li>
-                            <a href="map.html">
-                                <i class="fas fa-map-marker-alt"></i>Maps</a>
-                        </li>
+                        
                         <li class="has-sub">
                             <a class="js-arrow" href="#">
                                 <i class="fas fa-copy"></i>Pages </a>

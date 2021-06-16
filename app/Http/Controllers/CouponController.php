@@ -106,4 +106,14 @@ class CouponController extends Controller
             return redirect()->route('coupon.index');
         }
     }
+
+    public function status(Request $request, $id , $status)
+    {
+        $coupon = Coupon::find($id);
+        $coupon->status = $status;
+        $coupon->save();
+        Session::flash('success','Coupon status changed!');
+        return redirect()->route('coupon.index');
+    }
+
 }

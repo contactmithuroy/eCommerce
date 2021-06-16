@@ -1,7 +1,7 @@
 @extends('admin.layout');
 
 @section('page_title','Coupon ')
-
+@section('coupon_select','active')
 @section('container')
 <!-- Main content -->
 <div class="row">
@@ -35,11 +35,22 @@
                                         <td>{{ $coupon->id }}</td>
                                         <td>{{ $coupon->title }}</td>
                                         <td>{{ $coupon->code }}</td>
-                                        <td>{{ $coupon->value }}</td>
+                                        <td>{{ $coupon->value }}Tk</td>
                                         <td class="d-flex">
                                             <a href="{{ route('coupon.edit', [$coupon->id]) }}" class="btn btn-primary mr-2"> 
                                                 <i class="fas fa-edit"></i> </a>
                                             </a>
+                                            <! status button !>
+                                            @if(($coupon->status) == 1)
+                                                <a href="{{ route('coupon.status', [$coupon->id,'0']) }}" class="btn btn-success mr-2"> 
+                                                    <i class="fas fa-unlock"></i> </a>
+                                                </a>
+
+                                            @elseif(($coupon->status) == 0)
+                                                <a href="{{ route('coupon.status', [$coupon->id,'1']) }}" class="btn btn-warning mr-2"> 
+                                                    <i class="fas fa-lock"></i> </a>
+                                                </a>
+                                            @endif
                                             <form action="{{ route('coupon.destroy',[$coupon->id]) }}">
                                                 @method('DELETE')
                                                 @csrf

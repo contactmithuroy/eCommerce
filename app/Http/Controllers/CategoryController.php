@@ -101,7 +101,7 @@ class CategoryController extends Controller
             $category->save();
             return response()->json(TRUE);
         }
-
+ 
     }
 
     /**
@@ -117,5 +117,14 @@ class CategoryController extends Controller
             Session::flash('success','Category has been delete successfully!');
             return redirect()->route('category.index');
         }
+    }
+
+    public function status(Request $request, $id , $status)
+    {
+        $category = Category::find($id);
+        $category->status = $status;
+        $category->save();
+        Session::flash('success','Category status changed!');
+        return redirect()->route('category.index');
     }
 }

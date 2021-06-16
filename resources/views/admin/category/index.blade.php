@@ -1,7 +1,7 @@
 @extends('admin.layout');
 
 @section('page_title','Category ')
-
+@section('category_select','active')
 @section('container')
 <!-- Main content -->
 <div class="row">
@@ -38,6 +38,16 @@
                                                 <a href="{{ route('category.edit', [$category->id]) }}" class="btn btn-primary mr-2"> 
                                                     <i class="fas fa-edit"></i> </a>
                                                 </a>
+                                                @if(($category->status) == 1)
+                                                    <a href="{{ route('category.status', [$category->id,'0']) }}" class="btn btn-success mr-2"> 
+                                                        <i class="fas fa-unlock"></i> </a>
+                                                    </a>
+
+                                                @elseif(($category->status) == 0)
+                                                    <a href="{{ route('category.status', [$category->id,'1']) }}" class="btn btn-warning mr-2"> 
+                                                        <i class="fas fa-lock"></i> </a>
+                                                    </a>
+                                                @endif
                                                 <form action="{{ route('category.destroy',[$category->id]) }}" method="POST">
                                                     @method('DELETE')
                                                     @csrf
