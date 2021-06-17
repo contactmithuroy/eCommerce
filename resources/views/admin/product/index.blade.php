@@ -29,7 +29,6 @@
                                         <th>User</th>
                                         <th>Category</th>
                                         <th>Keywords</th>
-                                        <th>technical_specification</th>
                                         <th style="text-align:center">Action</th>
                                     </tr>
                                 </thead>
@@ -45,10 +44,9 @@
                                         <td>{{ $product->name }}</td>
                                         <td>{{ $product->brand }}</td>
                                         <td>{{ $product->model }}</td>
-                                        <td>{{ $product->user }}</td>
-                                        <td>{{ $product->category_id }}</td>
+                                        <td>{{ $product->admin->name }}</td>
+                                        <td>{{ $product->category->name }}</td>
                                         <td>{{ $product->keywords }}</td>
-                                        <td>{{ $product->technical_specification }}</td>
                                         <td class="d-flex justify-content-center">
                                             <a href="{{ route('product.edit', [$product->id]) }}" class="btn btn-primary mr-2"> 
                                                 <i class="fas fa-edit"></i> </a>

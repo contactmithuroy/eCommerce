@@ -59,11 +59,17 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="category_id">Category</label>
-                                                <select name="category_id" id="category_id" class="form-control">
-                                                    <option value="" style="display: none" selected >Please select</option>
-                                                    <option value="1">Option #1</option>
-                                                    <option value="2">Option #2</option>
-                                                    <option value="3">Option #3</option>
+                                                <select name="category_id" id="category_id" class="form-control" required>
+
+                                                    {{-- <option value="" style="display: none" selected >Please select</option> --}}
+                                                    @foreach ($categories as $category)
+                                                        @if(($category->id) == ($product->category_id) )
+                                                        <option value="{{ $category->id }}" style="display: none" selected >{{ $category->name }}</option>
+                                                        @else
+                                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                        @endif
+                                                    @endforeach
+                        
                                                 </select>
                                             </div>
                                         </div>
@@ -106,7 +112,7 @@
                                             <div class="form-group">
                                                 <label for="short_description">Short_description</label>
                                                 <textarea name="short_description" id="short_description" rows="4" class="form-control" placeholder="Enter your short_description">
-                                                    {{ ("$product->short_description") }}
+                                                    {!! ("$product->short_description") !!}
                                                 </textarea>
                                             </div>
                                         </div>
@@ -155,6 +161,11 @@
         placeholder: 'Write here something new...',
         tabsize: 2,
         height: 300
+    });
+    $('#short_description').summernote({ // discription id is requered same
+        placeholder: 'Write here something new...',
+        tabsize: 2,
+        height: 250
     });
     // if font have not show then change the font path. go js file find(/font) replace(../font/)
     </script>

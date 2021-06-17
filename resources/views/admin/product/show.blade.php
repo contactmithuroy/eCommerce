@@ -39,16 +39,13 @@
                             <td>{{ $product->model }}</td>
                         </tr>
                         <tr>
-                            <th>User</th>
-                            <td>{{ $product->user }}</td>
+                            <th>Category</th>
+                            <td>{{ $product->category->name }}</td>
                         </tr>
+                    
                         <tr>
                             <th>User</th>
-                            <td>{{ $product->user }}</td>
-                        </tr>
-                        <tr>
-                            <th>User</th>
-                            <td>{{ $product->user }}</td>
+                            <td>{{ $product->admin->name }}</td>
                         </tr>
                         <tr>
                             <th>Warranty</th>
@@ -72,7 +69,7 @@
                         </tr>
                         <tr>
                             <th>Short Description</th>
-                            <td>{{ $product->short_description }}</td>
+                            <td>{!!$product->short_description!!}</td>
                         </tr>
                         <tr>
                             <th>Description</th>

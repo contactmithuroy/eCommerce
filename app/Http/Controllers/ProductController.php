@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use Session;
-
+use App\Models\Category;
+use App\Models\Admin;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -29,7 +30,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('admin.product.create');
+        $categories = Category::all();
+        return view('admin.product.create',compact('categories'));
     }
 
     /**
@@ -57,7 +59,7 @@ class ProductController extends Controller
     $product->name = $request->name;
     $product->brand = $request->brand;
     $product->model = $request->model;
-    $product->user = $request->user;
+    $product->user = session()->has('ADMIN_ID');
     $product->warranty = $request->warranty;
     $product->status = '1';
     $product->technical_specification = $request->technical_specification;
@@ -103,7 +105,8 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('admin.product.edit',compact('product'));
+        $categories = Category::all();
+        return view('admin.product.edit',compact(['product','categories']));
     }
 
     /**
@@ -121,7 +124,7 @@ class ProductController extends Controller
         $product->name = $request->name;
         $product->brand = $request->brand;
         $product->model = $request->model;
-        $product->user = $request->user;
+        $product->user = session()->has('ADMIN_ID');
         $product->warranty = $request->warranty;
         $product->technical_specification = $request->technical_specification;
         $product->short_description = $request->short_description;

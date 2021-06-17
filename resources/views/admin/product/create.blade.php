@@ -43,12 +43,7 @@
                                                 <input type="text" name="model" class="form-control" id="model" placeholder="Enter model" required>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="user">User</label>
-                                                <input type="text" name="user" class="form-control" id="user" placeholder="Enter user" required>
-                                            </div>
-                                        </div>
+                                    
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="warranty">Warranty	status</label>
@@ -58,11 +53,13 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="category_id">Category</label>
-                                                <select name="category_id" id="category_id" class="form-control">
+                                                <select name="category_id" id="category_id" class="form-control" required>
+
                                                     <option value="" style="display: none" selected >Please select</option>
-                                                    <option value="1">Option #1</option>
-                                                    <option value="2">Option #2</option>
-                                                    <option value="3">Option #3</option>
+                                                    @foreach ($categories as $category)
+                                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                    @endforeach
+                        
                                                 </select>
                                             </div>
                                         </div>
@@ -149,6 +146,11 @@
         placeholder: 'Write here something new...',
         tabsize: 2,
         height: 300
+    });
+    $('#short_description').summernote({ // discription id is requered same
+        placeholder: 'Write here something new...',
+        tabsize: 2,
+        height: 250
     });
     // if font have not show then change the font path. go js file find(/font) replace(../font/)
     </script>
