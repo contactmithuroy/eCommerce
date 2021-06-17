@@ -45,7 +45,7 @@ class CategoryController extends Controller
         $category = new Category();
         $category->name = ucfirst($request->name);
         $category->slug = Str::slug($request->name,'-');
-
+        $category->status = 1;
         if(Category::whereSlug($category->slug)->exists() ){
             $category->slug = "{$category->slug}_" . rand(0,500);
         }

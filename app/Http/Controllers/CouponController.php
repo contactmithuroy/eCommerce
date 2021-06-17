@@ -48,6 +48,7 @@ class CouponController extends Controller
         $coupon->title = ucfirst($request->title);
         $coupon->code = strtoupper($request->code);
         $coupon->value = ($request->value);
+        $coupon->status = 1;
         $coupon->save();
 
         return response()->json(TRUE);
@@ -106,7 +107,7 @@ class CouponController extends Controller
             return redirect()->route('coupon.index');
         }
     }
-
+ 
     public function status(Request $request, $id , $status)
     {
         $coupon = Coupon::find($id);

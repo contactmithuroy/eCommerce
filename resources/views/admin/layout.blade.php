@@ -100,6 +100,10 @@
                             <a href="{{ route('coupon.index') }}">
                                 <i class="fas fa-tags"></i>Coupon</a>
                         </li>
+                        <li class="@yield('size_select')">
+                            <a href="{{ route('size.index') }}">
+                                <i class="fa fa-check-square"></i>Size</a>
+                        </li>
                         <li>
                             <a href="{{ route('admin.logout') }}">
                                 <i class="fas fa-sign-out-alt"></i>Logout</a>

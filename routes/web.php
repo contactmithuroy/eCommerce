@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CouponController;
+use App\Http\Controllers\SizeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,6 +34,12 @@ Route::group(['middleware'=>'admin_auth'],function(){
 
     Route::resource('admin/coupon',CouponController::class);
     Route::get('admin/coupon/status/{id}/{status}',[CouponController::class,'status'])->name('coupon.status');
+
+    Route::resource('admin/size',SizeController::class);
+    Route::get('admin/size//{id}',[SizeController::class,'destroy'])->name('size.destroy');
+    Route::get('admin/size/status/{id}/{status}',[SizeController::class,'status'])->name('size.status');
+
+    
 });
 // Route::get('/admin',[AdminController::class,'index']);
 Route::get('/login',[AdminController::class,'login'])->name('login');

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Session;
+use Illuminate\Support\Facades\Str;
 use App\Models\Size;
 use Illuminate\Http\Request;
 
@@ -14,7 +16,8 @@ class SizeController extends Controller
      */
     public function index()
     {
-        //
+        $sizes = Size::all();
+        return view('admin.size.index',compact('sizes'));
     }
 
     /**
@@ -24,7 +27,7 @@ class SizeController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.size.create');
     }
 
     /**
@@ -35,7 +38,16 @@ class SizeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'size'=>'required',
+        ]);
+
+        $size = new Size();
+        $size->size = strtoupper($request->size);
+        $size->status = 1;
+        $size->save();
+
+        return response()->json(TRUE);
     }
 
     /**
@@ -55,9 +67,9 @@ class SizeController extends Controller
      * @param  \App\Models\Size  $size
      * @return \Illuminate\Http\Response
      */
-    public function edit(Size $size)
+    public function edit(size $size)
     {
-        //
+        return view('admin.size.edit',compact('size'));
     }
 
     /**
@@ -69,7 +81,15 @@ class SizeController extends Controller
      */
     public function update(Request $request, Size $size)
     {
-        //
+        $request->validate([
+            'size' => "required",
+        ]);
+
+        if($size = Size::find($request->id)){
+            $size->size = strtoupper($request->size);
+            $size->save();
+            return response()->json(TRUE);
+        }
     }
 
     /**
@@ -78,8 +98,22 @@ class SizeController extends Controller
      * @param  \App\Models\Size  $size
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Size $size)
+    public function destroy($size)
     {
-        //
+        if($size){
+            $size = Size::find($size);
+            $size->delete();
+            Session::flash('success','Size has been delete successfully!');
+            return redirect()->route('size.index');
+        }
+    }
+
+    public function status(Request $request, $id , $status)
+    {
+        $size = Size::find($id);
+        $size->status = $status;
+        $size->save();
+        Session::flash('success','size status changed!');
+        return redirect()->route('size.index');
     }
 }

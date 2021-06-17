@@ -1,7 +1,7 @@
 @extends('admin.layout');
 
-@section('page_title','Coupon ')
-@section('coupon_select','active')
+@section('page_title','Size ')
+@section('size_select','active')
 @section('container')
 <!-- Main content -->
 <div class="row">
@@ -10,8 +10,8 @@
             <div class="card-header mt-3">
               
               <div class=" d-flex justify-content-between align-item-center ">
-                    <h3 class="card-title">All Coupon </h3>
-                    <a href="{{ route('coupon.create') }}" class="btn btn-primary"> Add Coupon</a>
+                    <h3 class="card-title">All Size </h3>
+                    <a href="{{ route('size.create') }}" class="btn btn-primary"> Add Size</a>
               </div>
             </div>
             <!-- /.card-header -->
@@ -23,39 +23,33 @@
                                 <thead>
                                     <tr>
                                         <th>Id</th>
-                                        <th>Coupon Name</th>
-                                        <th>Coupon Code</th>
-                                        <th>Coupon Value</th>
+                                        <th>size</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($coupons as $coupon)
+                                    @foreach ($sizes as $size)
                                     <tr>
-                                        <td>{{ $coupon->id }}</td>
-                                        <td>{{ $coupon->title }}</td>
-                                        <td>{{ $coupon->code }}</td>
-                                        <td>{{ $coupon->value }}Tk</td>
+                                        <td>{{ $size->id }}</td>
+                                        <td>{{ $size->size }}</td>
                                         <td class="d-flex">
-                                            <a href="{{ route('coupon.edit', [$coupon->id]) }}" class="btn btn-primary mr-2"> 
+                                            <a href="{{ route('size.edit', [$size->id]) }}" class="btn btn-primary mr-2"> 
                                                 <i class="fas fa-edit"></i> </a>
                                             </a>
                                             <! status button !>
-                                            @if(($coupon->status) == 1)
-                                                <a href="{{ route('coupon.status', [$coupon->id,'0']) }}" class="btn btn-success mr-2"> 
+                                            @if(($size->status) == 1)
+                                                <a href="{{ route('size.status', [$size->id,'0']) }}" class="btn btn-success mr-2"> 
                                                     <i class="fas fa-unlock"></i> </a>
                                                 </a>
 
-                                            @elseif(($coupon->status) == 0)
-                                                <a href="{{ route('coupon.status', [$coupon->id,'1']) }}" class="btn btn-warning mr-2"> 
+                                            @elseif(($size->status) == 0)
+                                                <a href="{{ route('size.status', [$size->id,'1']) }}" class="btn btn-warning mr-2"> 
                                                     <i class="fas fa-lock"></i> </a>
                                                 </a>
                                             @endif
-                                            <form action="{{ route('coupon.destroy',[$coupon->id]) }}">
-                                                @method('DELETE')
-                                                @csrf
-                                                <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i> </button>                                                
-                                            </form>
+                                            <a href="{{ route('size.destroy', [$size->id]) }}" class="btn btn-danger "> 
+                                                <i class="fas fa-trash"></i> </a>
+                                            </a>
                                         </td>
                                     </tr>
                                     @endforeach
