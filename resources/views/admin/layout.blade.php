@@ -104,6 +104,12 @@
                             <a href="{{ route('size.index') }}">
                                 <i class="fa fa-check-square"></i>Size</a>
                         </li>
+
+                        <li class="@yield('color')">
+                            <a href="{{ route('color.index') }}">
+                                <i class="fas fa-braille"></i>Color</a>
+                        </li>
+
                         <li>
                             <a href="{{ route('admin.logout') }}">
                                 <i class="fas fa-sign-out-alt"></i>Logout</a>

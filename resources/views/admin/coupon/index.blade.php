@@ -51,7 +51,7 @@
                                                     <i class="fas fa-lock"></i> </a>
                                                 </a>
                                             @endif
-                                            <form action="{{ route('coupon.destroy',[$coupon->id]) }}">
+                                            <form action="{{ route('coupon.delete',[$coupon->id]) }}">
                                                 @method('DELETE')
                                                 @csrf
                                                 <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i> </button>                                                

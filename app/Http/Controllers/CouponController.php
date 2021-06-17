@@ -99,7 +99,7 @@ class CouponController extends Controller
      * @param  \App\Models\Coupon  $coupon
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Coupon $coupon)
+    public function delete(Coupon $coupon)
     {
         if($coupon){
             $coupon->delete();

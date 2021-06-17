@@ -98,7 +98,7 @@ class SizeController extends Controller
      * @param  \App\Models\Size  $size
      * @return \Illuminate\Http\Response
      */
-    public function destroy($size)
+    public function delete($size)
     {
         if($size){
             $size = Size::find($size);

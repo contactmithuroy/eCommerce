@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\SizeController;
+use App\Http\Controllers\ColorController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,11 +34,16 @@ Route::group(['middleware'=>'admin_auth'],function(){
     Route::get('admin/category/status/{id}/{status}',[CategoryController::class,'status'])->name('category.status');
 
     Route::resource('admin/coupon',CouponController::class);
+    Route::delete('admin/coupon/delete/{id}',[CouponController::class,'delete'])->name('coupon.delete'); 
     Route::get('admin/coupon/status/{id}/{status}',[CouponController::class,'status'])->name('coupon.status');
 
     Route::resource('admin/size',SizeController::class);
-    Route::get('admin/size//{id}',[SizeController::class,'destroy'])->name('size.destroy');
+    Route::delete('admin/size/delete/{id}',[SizeController::class,'delete'])->name('size.delete');
     Route::get('admin/size/status/{id}/{status}',[SizeController::class,'status'])->name('size.status');
+
+    Route::resource('admin/color',ColorController::class);
+    Route::delete('admin/color/delete/{id}',[ColorController::class,'delete'])->name('color.delete');
+    Route::get('admin/color/status/{id}/{status}',[ColorController::class,'status'])->name('color.status');
 
     
 });
