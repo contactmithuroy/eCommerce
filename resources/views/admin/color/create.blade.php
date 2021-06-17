@@ -73,21 +73,11 @@
                     $('#s_message').removeClass('hide');
                     setTimeout(function(){  
                         $('#s_message').fadeOut("Slow");  
-                    }, 5000);  
+                    }, 10000);  
                     setTimeout(function(){  
                         $('#s_message').fadeIn("Slow");  
                     }, 1000);  
-                }
-                error.function((response) = false) {
-                    alert('error');
-                    $('#s_message').val("Same Color");
-                    setTimeout(function(){  
-                        $('#s_message').fadeOut("Slow");  
-                    }, 5000);  
-                    setTimeout(function(){  
-                        $('#s_message').fadeIn("Slow");  
-                    }, 1000);  
-                }  
+                } 
             });
             
         }); 

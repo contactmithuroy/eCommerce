@@ -96,6 +96,11 @@
                             <a href="{{ route('category.index') }}">
                                 <i class="fas fa-list"></i>Category</a>
                         </li>
+                    
+                        <li class="@yield('product_select')">
+                            <a href="{{ route('product.index') }}">
+                                <i class="fas fa-cart-plus"></i>Products</a>
+                        </li>
                         <li class="@yield('coupon_select')">
                             <a href="{{ route('coupon.index') }}">
                                 <i class="fas fa-tags"></i>Coupon</a>

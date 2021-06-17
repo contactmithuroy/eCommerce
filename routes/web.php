@@ -6,15 +6,11 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\SizeController;
 use App\Http\Controllers\ColorController;
+use App\Http\Controllers\ProductController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
 */
 
 Route::get('/', function () {
@@ -32,7 +28,11 @@ Route::group(['middleware'=>'admin_auth'],function(){
     Route::get('admin/category/edit/{category}', [CategoryController::class,'edit'])->name('category.edit');
     Route::put('admin/category/update', [CategoryController::class,'update'])->name('category.update');
     Route::get('admin/category/status/{id}/{status}',[CategoryController::class,'status'])->name('category.status');
-
+    
+    Route::resource('admin/product',ProductController::class);
+    Route::delete('admin/product/delete/{id}',[ProductController::class,'delete'])->name('product.delete');
+    Route::get('admin/product/status/{id}/{status}',[ProductController::class,'status'])->name('product.status');
+    
     Route::resource('admin/coupon',CouponController::class);
     Route::delete('admin/coupon/delete/{id}',[CouponController::class,'delete'])->name('coupon.delete'); 
     Route::get('admin/coupon/status/{id}/{status}',[CouponController::class,'status'])->name('coupon.status');
@@ -49,9 +49,9 @@ Route::group(['middleware'=>'admin_auth'],function(){
 });
 // Route::get('/admin',[AdminController::class,'index']);
 Route::get('/login',[AdminController::class,'login'])->name('login');
+Route::get('logout', [AdminController::class,'logout'])->name('admin.logout');
 Route::post('admin/auth',[AdminController::class,'auth'])->name('admin.auth');
 // Route::get('admin/updatePassword',[AdminController::class,'updatePassword']); // for creating hash password
-Route::get('logout', [AdminController::class,'logout'])->name('admin.logout');
 
 Route::get('admin/edit',function(){
     return view('admin.category.edit');
