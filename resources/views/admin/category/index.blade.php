@@ -24,7 +24,7 @@
                                     <tr>
                                         <th>Id</th>
                                         <th>Category Name</th>
-                                        <th>Category Slug</th>
+                                        <th>Created Date</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -33,27 +33,27 @@
                                     <tr>
                                         <td>{{ $category->id }}</td>
                                         <td>{{ $category->name }}</td>
-                                        <td id="slug">{{ $category->slug }}</td>
-                                            <td class="d-flex">
-                                                <a href="{{ route('category.edit', [$category->id]) }}" class="btn btn-primary mr-2"> 
-                                                    <i class="fas fa-edit"></i> </a>
+                                        <td id="slug">{{ $category->created_at->format('d M, Y') }}</td>
+                                        <td class="d-flex">
+                                            <a href="{{ route('category.edit', [$category->id]) }}" class="btn btn-primary mr-2"> 
+                                                <i class="fas fa-edit"></i> </a>
+                                            </a>
+                                            @if(($category->status) == 1)
+                                                <a href="{{ route('category.status', [$category->id,'0']) }}" class="btn btn-success mr-2"> 
+                                                    <i class="fas fa-unlock"></i> </a>
                                                 </a>
-                                                @if(($category->status) == 1)
-                                                    <a href="{{ route('category.status', [$category->id,'0']) }}" class="btn btn-success mr-2"> 
-                                                        <i class="fas fa-unlock"></i> </a>
-                                                    </a>
 
-                                                @elseif(($category->status) == 0)
-                                                    <a href="{{ route('category.status', [$category->id,'1']) }}" class="btn btn-warning mr-2"> 
-                                                        <i class="fas fa-lock"></i> </a>
-                                                    </a>
-                                                @endif
-                                                <form action="{{ route('category.destroy',[$category->id]) }}" method="POST">
-                                                    @method('DELETE')
-                                                    @csrf
-                                                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i> </button>                                                
-                                                </form>
-                                            </td>
+                                            @elseif(($category->status) == 0)
+                                                <a href="{{ route('category.status', [$category->id,'1']) }}" class="btn btn-warning mr-2"> 
+                                                    <i class="fas fa-lock"></i> </a>
+                                                </a>
+                                            @endif
+                                            <form action="{{ route('category.destroy',[$category->id]) }}" method="POST">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i> </button>                                                
+                                            </form>
+                                        </td>
                                         </tr>
                                     @endforeach
 

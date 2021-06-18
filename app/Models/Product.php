@@ -15,4 +15,5 @@ class Product extends Model
     public function admin(){
         return $this->belongsTo('App\Models\Admin','user');
     }
+
 }

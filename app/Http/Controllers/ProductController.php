@@ -7,8 +7,12 @@ use Carbon\Carbon;
 use Session;
 use App\Models\Category;
 use App\Models\Admin;
+use App\Models\Size;
+use App\Models\Color;
 use App\Models\Product;
+use App\Models\Product_attribute;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -30,8 +34,10 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
-        return view('admin.product.create',compact('categories'));
+        $categories = Category::where('status','1')->get();
+        $colors = Color::where('status','1')->get();
+        $sizes = Size::where('status','1')->get();
+        return view('admin.product.create',compact(['categories','colors','sizes']));
     }
 
     /**
@@ -105,8 +111,10 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        $categories = Category::all();
-        return view('admin.product.edit',compact(['product','categories']));
+        $categories = Category::where('status','1')->get();
+        $colors = Color::where('status','1')->get();
+        $sizes = Size::where('status','1')->get();
+        return view('admin.product.edit',compact(['product','categories','colors','sizes']));
     }
 
     /**
@@ -131,20 +139,52 @@ class ProductController extends Controller
         $product->description = $request->description;
         $product->keywords = $request->keywords;
 
-      $product->slug = Str::slug($request->name,'-');
+        $product->slug = Str::slug($request->name,'-');
         if(Product::whereSlug($product->slug)->exists() ){
             $product->slug = "{$product->slug}_" . rand(0,500);
 
         }
-        if($request->hasFile('image')){
-            $image = $request->image;
+        if($request->hasFile('product_image')){
+            $image = $request->product_image;
             $imageNewName = Time().".".$image->getClientOriginalExtension();
             $image->move('storage/product/',$imageNewName);
             $product->image = 'storage/product/'.$imageNewName;
 
         }
-
         $product->save();
+
+        // product attribute
+        // dd($request->all());
+        $mrp = $request->mrp;
+        $price = $request->price;
+        $quantity = $request->quantity;
+        $size_id = $request->size_id;
+        $color_id = $request->color_id;
+        $image_attribute = $request->image_attribute;
+        $data = [];
+        for($i=0; $i <(count($mrp)); $i++){
+            $data = [];
+            if($request->hasFile('image_attribute')){
+                $image = $request->image_attribute[$i];
+                $imageNewName = Time().".".$image->getClientOriginalExtension();
+                $image->move('storage/product/',$imageNewName);
+                $files = 'storage/product/'.$imageNewName;
+    
+            }
+            $data[] = array(
+                'sku'=>mt_rand( 1000000000, 9999999999 ),
+                'mrp'=> $mrp[$i],
+                'price'=>$price[$i],
+                'quantity'=>$quantity[$i],
+                'size_id'=>$size_id [$i],
+                'color_id'=>$color_id[$i],
+                'product_id' => $product->id,
+                'image_attribute'=>$files,
+            );
+
+            $submit = Product_attribute::insert($data);
+            echo "<h1> hello </h1>";
+        }
         Session::flash('success','Product has been update successfully!');
         return redirect()->route('product.index');
     }
