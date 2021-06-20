@@ -79,14 +79,13 @@ class ProductController extends Controller
             $product->slug = "{$product->slug}_" . rand(0,500);
 
         }
-    if($request->has('image')){
-        $image = $request->image;
+    if($request->has('product_image')){
+        $image = $request->product_image;
         $imageNewName = Time().".".$image->getClientOriginalExtension();
         $image->move('storage/product/',$imageNewName);
         $product->image = 'storage/product/'.$imageNewName;
 
     }
-
     $product->save();
     Session::flash('success','Product has been add successfully!');
     return redirect()->route('product.create');
@@ -116,7 +115,6 @@ class ProductController extends Controller
         $sizes = Size::where('status','1')->get();
         return view('admin.product.edit',compact(['product','categories','colors','sizes']));
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -126,6 +124,9 @@ class ProductController extends Controller
      */
     public function update(Request $request)
     {
+        $request->validate([
+                'image_attribute'=>'nullable',
+                ]);
         // dd($request->all());
         $product = Product::find($request->id);
         $product->category_id = $request->category_id;
@@ -144,50 +145,16 @@ class ProductController extends Controller
             $product->slug = "{$product->slug}_" . rand(0,500);
 
         }
-        if($request->hasFile('product_image')){
+        if($request->has('product_image')){
             $image = $request->product_image;
             $imageNewName = Time().".".$image->getClientOriginalExtension();
             $image->move('storage/product/',$imageNewName);
             $product->image = 'storage/product/'.$imageNewName;
-
         }
         $product->save();
-
-        // product attribute
-        // dd($request->all());
-        $mrp = $request->mrp;
-        $price = $request->price;
-        $quantity = $request->quantity;
-        $size_id = $request->size_id;
-        $color_id = $request->color_id;
-        $image_attribute = $request->image_attribute;
-        $data = [];
-        for($i=0; $i <(count($mrp)); $i++){
-            $data = [];
-            if($request->hasFile('image_attribute')){
-                $image = $request->image_attribute[$i];
-                $imageNewName = Time().".".$image->getClientOriginalExtension();
-                $image->move('storage/product/',$imageNewName);
-                $files = 'storage/product/'.$imageNewName;
-    
-            }
-            $data[] = array(
-                'sku'=>mt_rand( 1000000000, 9999999999 ),
-                'mrp'=> $mrp[$i],
-                'price'=>$price[$i],
-                'quantity'=>$quantity[$i],
-                'size_id'=>$size_id [$i],
-                'color_id'=>$color_id[$i],
-                'product_id' => $product->id,
-                'image_attribute'=>$files,
-            );
-
-            $submit = Product_attribute::insert($data);
-            echo "<h1> hello </h1>";
-        }
         Session::flash('success','Product has been update successfully!');
         return redirect()->route('product.index');
-    }
+}
 
     /**
      * Remove the specified resource from storage.
