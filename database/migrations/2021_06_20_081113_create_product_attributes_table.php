@@ -16,10 +16,10 @@ class CreateProductAttributesTable extends Migration
         Schema::create('product_attributes', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('sku');
-            $table->string('image_attribute');
-            $table->integer('mrp');
-            $table->integer('price');
-            $table->integer('quantity');
+            $table->string('image_attribute')->nullable();
+            $table->integer('mrp')->nullable();;
+            $table->integer('price')->nullable();;
+            $table->integer('quantity')->nullable();
             $table->bigInteger('size_id')->unsigned(); // foreign key must same datatype
             $table->bigInteger('color_id')->unsigned();
             $table->bigInteger('product_id')->unsigned();

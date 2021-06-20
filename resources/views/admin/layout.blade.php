@@ -115,6 +115,11 @@
                                 <i class="fas fa-braille"></i>Color</a>
                         </li>
 
+                        <li class="@yield('product_attribute')">
+                            <a href="{{ route('attribute.index') }}">
+                                <i class="fas fa-braille"></i>Product_attribute</a>
+                        </li>
+
                         <li>
                             <a href="{{ route('admin.logout') }}">
                                 <i class="fas fa-sign-out-alt"></i>Logout</a>

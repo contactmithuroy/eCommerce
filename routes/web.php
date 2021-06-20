@@ -7,6 +7,7 @@ use App\Http\Controllers\CouponController;
 use App\Http\Controllers\SizeController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductAttController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -45,7 +46,28 @@ Route::group(['middleware'=>'admin_auth'],function(){
     Route::delete('admin/color/delete/{id}',[ColorController::class,'delete'])->name('color.delete');
     Route::get('admin/color/status/{id}/{status}',[ColorController::class,'status'])->name('color.status');
 
-    
+
+    Route::resource('admin/product_attribute',ProductAttController::class);
+    Route::get('admin/product_attribute',[ProductAttController::class,'index'])->name('attribute.index');
+    Route::delete('admin/product_attribute/delete/{id}',[ProductAttController::class,'delete'])->name('attribute.delete');
+    Route::get('admin/product_attribute/edit/{id}',[ProductAttController::class,'edit'])->name('attribute.edit');
+    // Route::post('admin/product_attribute/update/{id}',[ProductAttController::class,'update'])->name('attribute.update');
+    Route::post('admin/product_attribute/update', [ProductAttController::class,'update'])->name('attribute.update');
+    Route::get('admin/product_attribute/status/{id}/{status}',[ProductAttController::class,'status'])->name('attribute.status');
+
+
+
+    // Route::post('/admin/category',[ProductAttributeController::class,'store'])->name('productAttribute.store');
+    // Route::get('/admin/product_attribute',[ProductAttributeController::class,'index'])->name('product_attribute.index');
+    // Route::get('/admin/product_attribute/create',[ProductAttributeController::class,'create'])->name('product_attribute.create');
+    // Route::put('/admin/category/{category}',[ProductAttributeController::class,'update'])->name('productAttribute.update');
+    // Route::get('/admin/category/{category}',[ProductAttributeController::class,'show'])->name('productAttribute.show');
+    // Route::delete('/admin/category/{category}',[ProductAttributeController::class,'destroy'])->name('productAttribute.destroy');
+    // Route::get('/admin/category/{category}/edit',[ProductAttributeController::class,'edit'])->name('productAttribute.edit');
+    // Route::delete('admin/product/delete/{id}',[ProductAttributeController::class,'delete'])->name('productAttribute.delete');
+    // Route::get('admin/product/status/{id}/{status}',[ProductAttributeController::class,'status'])->name('productAttribute.status');
+
+
 });
 // Route::get('/admin',[AdminController::class,'index']);
 Route::get('/login',[AdminController::class,'login'])->name('login');

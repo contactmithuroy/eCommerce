@@ -1,6 +1,6 @@
 @extends('admin.layout');
 
-@section('page_title','Product ')
+@section('page_title','product ')
 @section('product_select','active')
 @section('container')
 <!-- Main content -->
@@ -9,8 +9,8 @@
         <div class="card">
             <div class="card-header mt-3">           
               <div class=" d-flex justify-content-between align-item-center ">
-                    <h3 class="card-title">All Product </h3>
-                    <a href="{{ route('product.create') }}" class="btn btn-primary"> Add Product</a>
+                    <h3 class="card-title">All product </h3>
+                    <a href="{{ route('product.create') }}" class="btn btn-primary"> Add product</a>
               </div>
             </div>
             <!-- /.card-header -->
@@ -26,9 +26,8 @@
                                         <th>Name</th>
                                         <th>Brand</th>
                                         <th>Model</th>
-                                        <th>User</th>
-                                        <th>Category</th>
                                         <th>Warranty</th>
+                                        <th>Category</th>
                                         <th style="text-align:center">Action</th>
                                     </tr>
                                 </thead>
@@ -44,9 +43,9 @@
                                         <td>{{ $product->name }}</td>
                                         <td>{{ $product->brand }}</td>
                                         <td>{{ $product->model }}</td>
-                                        <td>{{ $product->admin->name }}</td>
-                                        <td>{{ $product->category->name }}</td>
                                         <td>{{ $product->warranty }}</td>
+                                        <td>{{ $product->category->name }}</td>
+                                  
                                         <td class="d-flex justify-content-center">
                                             <a href="{{ route('product.edit', [$product->id]) }}" class="btn btn-primary mr-2"> 
                                                 <i class="fas fa-edit"></i> </a>

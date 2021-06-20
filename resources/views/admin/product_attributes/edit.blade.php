@@ -1,6 +1,6 @@
 @extends('admin.layout');
-@section('page_title','Update Product')
-@section('product_select','active')
+@section('page_title','Add product_attribute')
+@section('product_attribute_select','active')
 @section('container')
 <!-- Main content -->
 <div class="row">
@@ -8,130 +8,112 @@
 <div class="card">
    <div class="card-header mt-3">
       <div class=" d-flex justify-content-between align-item-center ">
-         <h3 class="card-title">Update Product </h3>
-         <a href="{{ route('product.index') }}" class="btn btn-primary"> Back To Product</a>
+         <h3 class="card-title">Update product_attribute </h3>
+         <a href="{{ route('attribute.index') }}" class="btn btn-primary"> Back To product_attribute</a>
       </div>
    </div>
    <!-- /.card-header -->
    <div class="card-body p-0">
       <div class="card card-primary">
          <!-- form start -->
-         <form action="{{ route('product.update',[$product->id]) }}" method="post" enctype="multipart/form-data">
+         <form role="form" action="{{ route('attribute.update') }}" id="create_product_attribute" method="post"   enctype= multipart/form-data >
+            @csrf
             <div class="row d-flex justify-content-center">
                <div class="col-12 col-lg-10 col-md-8">
-                  @csrf
-                  @method('PUT')
-                  <div class="card-body">
-                     <div class="alert alert-success success_alt mt-3 hide" role="alert" id="s_message">
-                        Your Data has been submit successfully!
-                     </div>
-                     <div class="row">
-                        <div class="col-md-6">
-                           <div class="form-group">
-                              <label for="name">Product Name</label>
-                              <input type="text" name="name" value="{{ $product->name }}"  class="form-control" id="name" placeholder="Enter name" required>
-                           </div>
+                  <div class="add-attribute" id="product_attribute_attr_box">
+                     <div class="card-body attribute_box mb-4 mt-3" >
+                        <div class="card-header mb-3" id="product_attribute_attr_1">
+                           {{-- <h4>Add New product_attribute Attributes</h4> --}}
                         </div>
-                        <div class="col-md-6">
-                           <div class="form-group">
-                              <label for="brand"> Brand</label>
-                              <input type="text" name="brand" value="{{ $product->brand }}" class="form-control" id="brand" placeholder="Enter brand" required>
+                        <div class="row">
+                           <div class="col-md-6">
+                              <div class="form-group">
+                                 <label for="mrp">MRP</label>
+                                 <input type="text" name="mrp" value="{{ $productAtt->mrp }}" class="form-control" id="mrp" placeholder="Enter mrp" required>
+                              </div>
                            </div>
-                        </div>
-                        <div class="col-md-6">
-                           <div class="form-group">
-                              <label for="model"> Model</label>
-                              <input type="text" name="model" value="{{ $product->model }}" class="form-control" id="model" placeholder="Enter model" required>
+                           <div class="col-md-6">
+                              <div class="form-group">
+                                 <label for="price">Price</label>
+                                 <input type="text" name="price" value="{{ $productAtt->price }}" class="form-control" id="price" placeholder="Enter price" required>
+                              </div>
                            </div>
-                        </div>
-                        {{-- <div class="col-md-6">
-                           <div class="form-group">
-                              <label for="user">User</label>
-                              <input type="text" name="user" value="{{ $product->user }}" class="form-control" id="user" placeholder="Enter user" required>
+                           <div class="col-md-6">
+                              <div class="form-group">
+                                 <label for="quantity">Quantity</label>
+                                 <input type="text" name="quantity" value="{{ $productAtt->quantity }}" class="form-control" id="quantity" placeholder="Enter quantity" required>
+                              </div>
                            </div>
-                        </div> --}}
-                        <div class="col-md-6">
-                           <div class="form-group">
-                              <label for="warranty">Warranty	status</label>
-                              <input type="text" name="warranty" value="{{ $product->warranty }}" class="form-control" id="warranty" placeholder="Enter warranty" required>
+                           <div class="col-md-6">
+                              <div class="form-group">
+                                 <label for="color_id">Color</label>
+                                 <select name="color_id" id="color_id" class="form-control" required >
+                        
+                                    @foreach ($colors as $color)
+                                    @if(($productAtt->color_id) == ($color->id))
+                                    <option value="{{ $color->id }}" style="display: none" selected >{{ $color->color }}</option>
+                                    @else
+                                    <option value="{{ $color->id }}">{{ $color->color }}</option>
+                                    @endif
+                                    @endforeach
+                                 </select>
+                              </div>
                            </div>
-                        </div>
-                        <div class="col-md-6">
-                           <div class="form-group">
-                              <label for="category_id">Category</label>
-                              <select name="category_id" id="category_id" class="form-control" required>
-                                 {{-- 
-                                 <option value="" style="display: none" selected >Please select</option>
-                                 --}}
-                                 @foreach ($categories as $category)
-                                 @if(($category->id) == ($product->category_id) )
-                                 <option value="{{ $category->id }}" style="display: none" selected >{{ $category->name }}</option>
-                                 @else
-                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                 @endif
-                                 @endforeach
-                              </select>
+                           <div class="col-md-6">
+                              <div class="form-group">
+                                 <label for="size_id">size</label>
+                                 <select name="size_id" id="size_id" class="form-control" required >
+                                    @foreach ($sizes as $size)
+                                    @if(($productAtt->size_id) == ($size->id))
+                                    <option value="{{ $size->id }}" style="display: none" selected >{{ $size->size }}</option>
+                                    @else
+                                    <option value="{{ $size->id }}">{{ $size->size }}</option>
+                                    @endif
+                                    @endforeach
+
+                                 </select>
+                              </div>
                            </div>
-                        </div>
-                        <div class="col-md-6">
-                           <div class="form-group">
-                              <label for="keywords">Keywords</label>
-                              <input type="text" name="keywords" value="{{ $product->keywords }}" class="form-control" id="keywords" placeholder="Enter keywords" required>
+                           <div class="col-md-6">
+                              <div class="form-group">
+                                 <label for="product">product</label>
+                                 <select name="product" id="product" class="form-control" required>
+   
+                                    @foreach ($products as $product)
+                                    @if(($productAtt->product_id) == ($product->id))
+                                    <option value="{{ $product->id }}" style="display: none" selected >{{ $size->size }}</option>
+                                    @else
+                                    <option value="{{ $product->id }}">{{ $product->name }}</option>
+                                    @endif
+                                    @endforeach
+                                 </select>
+                              </div>
                            </div>
-                        </div>
-                        <div class="col-md-6">
-                           <div class="form-group">
-                              <label for="productImage">Image</label>
-                              <div class="input-group">
-                                 <div class="custom-file">
-                                    <input type="file" name="product_image" class="custom-file-input" id="productImage">
-                                    <label class="custom-file-label" for="productImage">Choose Image</label>
-                                 </div>
-                                 <div class="input-group-append">
-                                    {{-- <span class="input-group-text" id="">Upload</span> --}}
+                           <div class="col-md-6">
+                              <div class="form-group">
+                                 <label for="product_attributeImage">Image</label>
+                                 <div class="input-group">
+                                    <div class="custom-file">
+                                       <input type="file" name="image_attribute" class="custom-file-input" id="product_attributeImage">
+                                       <label class="custom-file-label" for="product_attributeImage">Choose Image</label>
+                                    </div>
+                                    <div class="input-group-append">
+                                    </div>
                                  </div>
                               </div>
                            </div>
+                           <div style="max-width:200px; max-height:200px; over-flow:hidden; margin-center:auto">
+                              <img src="{{ asset($productAtt->image_attribute) }}" class="img-fluid">
+                          </div>  
                         </div>
-                        <div class="col-md-4 mb-5 mt-3">
-                           <div style="max-width:200px; max-height:200px; over-flow:hidden;">
-                              <img src="{{ asset($product->image) }}" class="img-fluid">
-                           </div>
-                        </div>
-                     </div>
-                     <div class="from-group">
-                        <div class="col-md-12">
-                           <div class="form-group">
-                              <label for="technical_specification">Technical_specification</label>
-                              <textarea name="technical_specification" id="technical_specification" rows="4" class="form-control" placeholder="Enter your technical_specification">
-                              {{ ("$product->technical_specification") }}
-                              </textarea>
-                           </div>
-                        </div>
-                        <div class="col-md-12">
-                           <div class="form-group">
-                              <label for="short_description">Short_description</label>
-                              <textarea name="short_description" id="short_description" rows="4" class="form-control" placeholder="Enter your short_description">
-                              {!! ("$product->short_description") !!}
-                              </textarea>
-                           </div>
-                        </div>
-                        <div class="col-md-12">
-                           <div class="form-group">
-                              <label for="description">Description</label>
-                              <textarea name="description"  id="summernote" rows="4" class="form-control" placeholder="Enter your description">
-                              {!! ("$product->description") !!}
-                              </textarea>
-                           </div>
-                        </div>
+                     
                      </div>
                   </div>
-                  <!-- /.card-body -->                                  
                </div>
             </div>
             <div class="card-footer">
-               <input type="hidden" name="id", value="{{ $product->id }}" id="id" />
-               <button type="submit" id="submit" class="btn btn-primary btn-lg">Submit</button>
+               <input type="hidden" name="id", value="{{ $productAtt->id }}" id="id" />
+               <button type="submit" id="submit" class="btn btn-primary">Submit</button>
             </div>
          </form>
          </div>
@@ -150,71 +132,14 @@
    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
    }
 </style>
-<link rel="stylesheet" href="{{ asset('admin/css/summernote-bs4.css') }}">
 @endsection
 @section('script')
 // copy css file and js file and past public directory 
-<script src="{{ asset('admin/js/summernote-bs4.js') }}"> </script>
 <script>
-   $('#summernote').summernote({ // discription id is requered same
-       placeholder: 'Write here something new...',
-       tabsize: 2,
-       height: 300
-   });
-   $('#short_description').summernote({ // discription id is requered same
-       placeholder: 'Write here something new...',
-       tabsize: 2,
-       height: 250
-   });
+
    // if font have not show then change the font path. go js file find(/font) replace(../font/)
+   // add more atttributs function
+
 
 </script>
 @endsection
-{{-- @section('script')
-<script>
-   $(document).ready(function(e) {   
-   
-       $("#create_product").submit(function(e){
-           e.preventDefault();
-   
-           let name = $("#name").val();
-           let brand = $("#brand").val();
-           let user = $("#user").val();
-           let warranty = $("#warranty").val();
-           let category = $("#category").val();
-           let productImage = $("#productImage").val();
-           let technical_specification = $("#technical_specification").val();
-           let short_description = $("#short_description").val();
-           let description = $("#description").val();
-           let _token = "{{ csrf_token() }}";
-           console.log(description);
-           $.ajax({
-               url: "{{ route('product.store') }}",
-               type:"PUT",
-               data:{
-                   name:name,
-                   brand:brand,
-                   user:user,
-                   category:category,
-                   productImage:productImage,
-                   technical_specification:technical_specification,
-                   short_description:short_description,
-                   description:description,
-                   _token:_token
-               },
-               success:function(response){  
-                   $("#create_product")[0].reset();
-                   $('#s_message').removeClass('hide');
-                   setTimeout(function(){  
-                       $('#s_message').fadeOut("Slow");  
-                   }, 10000);  
-                   setTimeout(function(){  
-                       $('#s_message').fadeIn("Slow");  
-                   }, 1000);  
-               } 
-           });
-           
-       }); 
-   });
-</script>
-@endsection --}}
