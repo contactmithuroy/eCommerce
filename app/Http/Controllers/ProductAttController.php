@@ -22,8 +22,10 @@ class ProductAttController extends Controller
      */
     public function index()
     {
+
+        $products = Product::with('attributes')->whereHas('attributes')->get();
         $product_attributes = productAtt::orderBy('created_at','DESC')->get();
-        return view('admin.product_attributes.index',compact('product_attributes'));
+        return view('admin.product_attributes.index',compact('products'));
     }
 
     /**

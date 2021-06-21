@@ -115,6 +115,11 @@
                                 <i class="fas fa-braille"></i>Color</a>
                         </li>
 
+                        <li class="@yield('brand')">
+                            <a href="{{ route('brand.index') }}">
+                                <i class="fas fa-box"></i>Brand</a>
+                        </li>
+
                         <li class="@yield('product_attribute')">
                             <a href="{{ route('attribute.index') }}">
                                 <i class="fas fa-braille"></i>Product_attribute</a>

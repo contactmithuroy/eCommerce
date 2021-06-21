@@ -19,3 +19,4 @@ class productAtt extends Model
         return $this->belongsTo('App\Models\product');
     }
 }
+ 

@@ -8,6 +8,7 @@ use App\Http\Controllers\SizeController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductAttController;
+use App\Http\Controllers\BrandController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -45,6 +46,11 @@ Route::group(['middleware'=>'admin_auth'],function(){
     Route::resource('admin/color',ColorController::class);
     Route::delete('admin/color/delete/{id}',[ColorController::class,'delete'])->name('color.delete');
     Route::get('admin/color/status/{id}/{status}',[ColorController::class,'status'])->name('color.status');
+
+    Route::resource('admin/brand',BrandController::class);
+    Route::POST('admin/brand/{brand}',[BrandController::class,'update'])->name('brand.update');
+    Route::get('admin/brand/status/{id}/{status}',[BrandController::class,'status'])->name('brand.status');
+    Route::get('admin/brand/delete/{id}',[BrandController::class,'destroy'])->name('brand.delete');
 
 
     Route::resource('admin/product_attribute',ProductAttController::class);

@@ -16,8 +16,14 @@
             <!-- /.card-header -->
             <div class="card-body p-0">
                 <div class="card card-primary">
-                   <div class="row">
-                        <div class=" col-md-12 col-sm-12  table-responsive table--no-card m-b-30">
+                   @if(isset($products[0]))
+                   @foreach ($products as $key => $product)
+                   
+                   <div class="row mb-4 p-5">
+                    
+                        <div class="col-md-12 col-sm-12  table-responsive table--no-card m-b-30">
+                            <h3><strong>{{ $product->name }}</strong></h3>
+                            <hr>
                             <table class="table table-borderless table-striped">
                                 <thead class="table-dark">
                                     <tr>
@@ -34,8 +40,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($product_attributes as $product_attribute)
-                                    <tr >
+                                    @if(isset($product->attributes[0]))
+                                    @foreach ($product->attributes as $key => $product_attribute)
+                                    <tr>
 
                                         <td>{{ $product_attribute->id }}</td>
                                         <td>
@@ -76,11 +83,15 @@
                                         </td>
                                     </tr>
                                     @endforeach
+                                    @endif
 
                                 </tbody>
                             </table>
                         </div>
-                   </div>
+                </div>   
+                   @endforeach
+                   @endif
+                   
                 </div>
             </div>
             <!-- /.card-body -->
