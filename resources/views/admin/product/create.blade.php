@@ -16,7 +16,7 @@
    <div class="card-body p-0">
       <div class="card card-primary">
          <!-- form start -->
-         <form role="form" action="{{ route('product.store') }}" id="create_product" method="POST"  enctype= multipart/form-data >
+         <form role="form" action="{{ route('product.store') }}" id="create_product" method="POST"  enctype= "multipart/form-data" >
             @csrf
             <div class="row d-flex justify-content-center">
                <div class="col-12 col-lg-10 col-md-8">
@@ -34,8 +34,13 @@
                         </div>
                         <div class="col-md-6">
                            <div class="form-group">
-                              <label for="brand"> Brand</label>
-                              <input type="text" name="brand"  class="form-control" id="brand" placeholder="Enter brand" required>
+                              <label for="brand">Brand</label>
+                              <select name="brand" id="brand" class="form-control" required>
+                                 <option value="" style="display: none" selected >Please select</option>
+                                 @foreach ($brands as $brand)
+                                 <option value="{{ $brand->id }}">{{ $brand->brand }}</option>
+                                 @endforeach
+                              </select>
                            </div>
                         </div>
                         <div class="col-md-6">
@@ -72,7 +77,7 @@
                                <label for="productImage">Image</label>
                                <div class="input-group">
                                   <div class="custom-file">
-                                     <input type="file" name="product_image" class="custom-file-input" id="productImage">
+                                     <input type="file" name="product_image" class="custom-file-input" id="productImage" required>
                                      <label class="custom-file-label" for="productImage">Choose Image</label>
                                   </div>
                                   <div class="input-group-append">
@@ -81,33 +86,95 @@
                                </div>
                             </div>
                          </div>
-                      </div>
-                      <div class="from-group">
-                         <div class="col-md-12">
-                            <div class="form-group">
-                               <label for="technical_specification">Technical_specification</label>
-                               <textarea name="technical_specification" id="technical_specification" rows="4" class="form-control" placeholder="Enter your technical_specification">
-                               {{ old('technical_specification') }}
-                               </textarea>
-                            </div>
-                         </div>
-                         <div class="col-md-12">
-                            <div class="form-group">
-                               <label for="short_description">Short_description</label>
-                               <textarea name="short_description" id="short_description" rows="4" class="form-control" placeholder="Enter your short_description">
-                               {{ old('short_description') }}
-                               </textarea>
-                            </div>
-                         </div>
-                         <div class="col-md-12">
-                            <div class="form-group">
-                               <label for="description">Description</label>
-                               <textarea name="description" id="summernote" rows="4" class="form-control" placeholder="Enter your description">
-                               {{ old('description') }}
-                               </textarea>
-                            </div>
-                         </div>
-                      </div>
+                     </div>
+                     <hr>
+                     <div class="row">
+                        <div class="col-md-4">
+                           <div class="form-group">
+                              <label for="lead_time"> Lead_time</label>
+                              <input type="text" name="lead_time"  class="form-control" id="lead_time" placeholder="Enter lead_time">
+                           </div>
+                        </div>
+                        <div class="col-md-4">
+                           <div class="form-group">
+                              <label for="tax"> Tax</label>
+                              <input type="text" name="tax"  class="form-control" id="tax" placeholder="Enter tax" >
+                           </div>
+                        </div>
+                        <div class="col-md-4">
+                           <div class="form-group">
+                              <label for="tax_type"> Tax_type</label>
+                              <input type="text" name="tax_type"  class="form-control" id="tax_type" placeholder="Enter tax_type" >
+                           </div>
+                        </div>
+                        <div class="col-md-3">
+                           <div class="form-group">
+                              <label for="is_promo">Is_promo</label>
+                               <select name="is_promo" id="is_promo" class="form-control" required>
+                                  <option value="" style="display: none" selected >Please select</option>
+                                  <option value="1">Yes</option>
+                                  <option value="0">No</option>
+                               </select>
+                           </div>
+                        </div>
+                        <div class="col-md-3">
+                           <div class="form-group">
+                              <label for="is_featured">Is_featured</label>
+                               <select name="is_featured" id="is_featured" class="form-control" required>
+                                  <option value="" style="display: none" selected >Please select</option>
+                                  <option value="1">Yes</option>
+                                  <option value="0">No</option>
+                               </select>
+                           </div>
+                        </div>
+                        <div class="col-md-3">
+                           <div class="form-group">
+                              <label for="is_discounted">Is_discounted</label>
+                               <select name="is_discounted" id="is_discounted" class="form-control" required>
+                                  <option value="" style="display: none" selected >Please select</option>
+                                  <option value="1">Yes</option>
+                                  <option value="0">No</option>
+                               </select>
+                           </div>
+                        </div>
+                        <div class="col-md-3">
+                           <div class="form-group">
+                              <label for="is_trending">Is_trending</label>
+                               <select name="is_trending" id="is_trending" class="form-control" required>
+                                  <option value="" style="display: none" selected >Please select</option>
+                                  <option value="1">Yes</option>
+                                  <option value="0">No</option>
+                               </select>
+                           </div>
+                        </div>
+                     </div>
+                     <hr>
+                     <div class="row">
+                           <div class="col-md-12">
+                              <div class="form-group">
+                                 <label for="technical_specification">Technical_specification</label>
+                                 <textarea name="technical_specification" id="technical_specification" rows="4" class="form-control" placeholder="Enter your technical_specification">
+                                 {{ old('technical_specification') }}
+                                 </textarea>
+                              </div>
+                           </div>
+                           <div class="col-md-12">
+                              <div class="form-group">
+                                 <label for="short_description">Short_description</label>
+                                 <textarea name="short_description" id="short_description" rows="4" class="form-control" placeholder="Enter your short_description">
+                                 {{ old('short_description') }}
+                                 </textarea>
+                              </div>
+                           </div>
+                           <div class="col-md-12">
+                              <div class="form-group">
+                                 <label for="description">Description</label>
+                                 <textarea name="description" id="summernote" rows="4" class="form-control" placeholder="Enter your description">
+                                 {{ old('description') }}
+                                 </textarea>
+                              </div>
+                           </div>   
+                        </div>
                    </div>
                   <!-- /.card-body -->                                  
                </div>
@@ -146,7 +213,12 @@
    $('#short_description').summernote({ // discription id is requered same
        placeholder: 'Write here something new...',
        tabsize: 2,
-       height: 250
+       height: 200
+   });
+   $('#technical_specification').summernote({ // discription id is requered same
+       placeholder: 'Write here something new...',
+       tabsize: 2,
+       height: 150
    });
    // if font have not show then change the font path. go js file find(/font) replace(../font/)
    // add more atttributs function

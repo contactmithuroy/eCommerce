@@ -65,7 +65,7 @@
                         </tr>
                         <tr>
                             <th>Technical Specification</th>
-                            <td>{{ $product->technical_specification }}</td>
+                            <td>{!! $product->technical_specification !!}</td>
                         </tr>
                         <tr>
                             <th>Short Description</th>

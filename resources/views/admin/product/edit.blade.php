@@ -34,8 +34,16 @@
                         </div>
                         <div class="col-md-6">
                            <div class="form-group">
-                              <label for="brand"> Brand</label>
-                              <input type="text" name="brand" value="{{ $product->brand }}" class="form-control" id="brand" placeholder="Enter brand" required>
+                              <label for="brand">Brand</label>
+                              <select name="brand" id="brand" class="form-control" required>
+                                 @foreach ($brands as $brand)
+                                 @if(($brand->id) == ($product->brand) )
+                                 <option value="{{ $brand->id }}" style="display: none" selected >{{ $brand->brand }}</option>
+                                 @else
+                                 <option value="{{ $brand->id }}">{{ $brand->brand }}</option>
+                                 @endif
+                                 @endforeach
+                              </select>
                            </div>
                         </div>
                         <div class="col-md-6">
@@ -99,15 +107,109 @@
                            </div>
                         </div>
                      </div>
-                     <div class="from-group">
+
+                     <hr>
+                     <div class="row">
+                   
+                        <div class="col-md-4">
+                           <div class="form-group">
+                              <label for="lead_time"> Lead_time</label>
+                              <input type="text" name="lead_time" value="{{ $product->lead_time }}" class="form-control" id="lead_time" placeholder="Enter lead_time">
+                           </div>
+                        </div>
+                        <div class="col-md-4">
+                           <div class="form-group">
+                              <label for="tax"> Tax</label>
+                              <input type="text" name="tax" value="{{ $product->tax }}"  class="form-control" id="tax" placeholder="Enter tax" >
+                           </div>
+                        </div>
+                        <div class="col-md-4">
+                           <div class="form-group">
+                              <label for="tax_type"> Tax_type</label>
+                              <input type="text" name="tax_type" value="{{ $product->tax_type }}"  class="form-control" id="tax_type" placeholder="Enter tax_type" >
+                           </div>
+                        </div>
+                        <div class="col-md-3">
+                           <div class="form-group">
+                              <label for="is_promo">Is_promo</label>
+                               <select name="is_promo" id="is_promo" class="form-control" required>
+                                 @if($product->is_promo == 1)
+                                 <option value="1"  selectedstyle="display: none" selected >Yes</option>
+                                 <option value="0">No</option>
+                                 @elseif($product->is_promo == 0)
+                                 <option value="0"  selectedstyle="display: none" selected >No</option>
+                                 <option value="1">Yes</option>
+                                 @else
+                                  <option value="1">Yes</option>
+                                  <option value="0">No</option>
+                                  @endif
+                               </select>
+                           </div>
+                        </div>
+                        <div class="col-md-3">
+                           <div class="form-group">
+                              <label for="is_featured">Is_featured</label>
+                               <select name="is_featured" id="is_featured" class="form-control" required>
+                                 @if($product->is_featured == 1)
+                                 <option value="1"  selectedstyle="display: none" selected >Yes</option>
+                                 <option value="0">No</option>
+                                 @elseif($product->is_featured == 0)
+                                 <option value="0"  selectedstyle="display: none" selected >No</option>
+                                 <option value="1">Yes</option>
+                                 @else
+                                  <option value="1">Yes</option>
+                                  <option value="0">No</option>
+                                  @endif
+                               </select>
+                           </div>
+                        </div>
+                        <div class="col-md-3">
+                           <div class="form-group">
+                              <label for="is_discounted">Is_discounted</label>
+                               <select name="is_discounted" id="is_discounted" class="form-control" required>
+                                 @if($product->is_discounted == 1)
+                                 <option value="1"  selectedstyle="display: none" selected >Yes</option>
+                                 <option value="0">No</option>
+                                 @elseif($product->is_discounted == 0)
+                                 <option value="0"  selectedstyle="display: none" selected >No</option>
+                                 <option value="1">Yes</option>
+                                 @else
+                                  <option value="1">Yes</option>
+                                  <option value="0">No</option>
+                                  @endif
+                               </select>
+                           </div>
+                        </div>
+                        <div class="col-md-3">
+                           <div class="form-group">
+                              <label for="is_trending">Is_trending</label>
+                               <select name="is_trending" id="is_trending" class="form-control" required>
+                                 @if($product->is_trending == 1)
+                                 <option value="1"  selectedstyle="display: none" selected >Yes</option>
+                                 <option value="0">No</option>
+                                 @elseif($product->is_trending == 0)
+                                 <option value="0"  selectedstyle="display: none" selected >No</option>
+                                 <option value="1">Yes</option>
+                                 @else
+                                  <option value="1">Yes</option>
+                                  <option value="0">No</option>
+                                  @endif
+                               </select>
+                           </div>
+                        </div>
+                     </div>
+                     <hr>
+
+                     <div class="row">
                         <div class="col-md-12">
                            <div class="form-group">
                               <label for="technical_specification">Technical_specification</label>
                               <textarea name="technical_specification" id="technical_specification" rows="4" class="form-control" placeholder="Enter your technical_specification">
-                              {{ ("$product->technical_specification") }}
+                              {!! ("$product->technical_specification") !!}
                               </textarea>
                            </div>
                         </div>
+
                         <div class="col-md-12">
                            <div class="form-group">
                               <label for="short_description">Short_description</label>
@@ -165,6 +267,11 @@
        placeholder: 'Write here something new...',
        tabsize: 2,
        height: 250
+   });
+   $('#technical_specification').summernote({ // discription id is requered same
+       placeholder: 'Write here something new...',
+       tabsize: 2,
+       height: 150
    });
    // if font have not show then change the font path. go js file find(/font) replace(../font/)
 

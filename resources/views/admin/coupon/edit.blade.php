@@ -28,24 +28,66 @@
 
                                 <input type="hidden" name="id", value="{{ $coupon->id }}" id="cid">
 
-                                <div class="card-body">                                                                       
-                                    <div class="form-group">
-                                        <label for="title">Coupon Name</label>
-                                        <input type="text" name="title" value="{{ $coupon->title }}" class="form-control" id="title" placeholder="Enter title" required>
+                                <div class="row mt-5">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="title">Coupon Name</label>
+                                            <input type="text" name="title" value="{{ $coupon->title }}" class="form-control" id="title" placeholder="Enter title" required>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="card-body">                                                                       
-                                    <div class="form-group">
-                                        <label for="code">Coupon Code</label>
-                                        <input type="text" name="code" value="{{ $coupon->code }}" class="form-control" id="code" placeholder="Enter code" required>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="code">Coupon Code</label>
+                                            <input type="text" name="code" value="{{ $coupon->code }}" class="form-control" id="code" placeholder="Enter code" required>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="card-body">                                                                       
-                                    <div class="form-group">
-                                        <label for="value">Couponvalue</label>
-                                        <input type="text" name="value" value="{{ $coupon->value }}" class="form-control" id="value" placeholder="Enter value" required>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="value">Coupun value</label>
+                                            <input type="text" name="value" value="{{ $coupon->value }}" class="form-control" id="value" placeholder="Enter value" required>
+                                        </div>
                                     </div>
-                                </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="min_order_amt">Min Order Ammount</label>
+                                            <input type="text" name="min_order_amt" value="{{ $coupon->min_order_amt }}"  class="form-control" id="min_order_amt" placeholder="Enter  ammount">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="type">Type</label>
+                                            <select name="type" id="type" class="form-control" required>
+                                              @if($coupon->type == 'value')
+                                              <option value="value"  selectedstyle="display: none" selected >Value</option>
+                                              <option value="per">Percentage</option>
+                                              @elseif($coupon->type == 'per')
+                                              <option value="per"  selectedstyle="display: none" selected >Percentage</option>
+                                              <option value="value">Value</option>
+                                              @else
+                                              <option value="value">Value</option>
+                                              <option value="per">Percentage</option>
+                                               @endif
+                                            </select>
+                                        </div>
+                                     </div>
+                                     <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="is_one_time">Is One Time</label>
+                                            <select name="is_one_time" id="is_one_time" class="form-control" required>
+                                              @if($coupon->is_one_time == 1)
+                                              <option value="1"  selectedstyle="display: none" selected >Yes</option>
+                                              <option value="0">No</option>
+                                              @elseif($coupon->is_one_time == 0)
+                                              <option value="0"  selectedstyle="display: none" selected >No</option>
+                                              <option value="1">Yes</option>
+                                              @else
+                                               <option value="1">Yes</option>
+                                               <option value="0">No</option>
+                                               @endif
+                                            </select>
+                                        </div>
+                                     </div>
+                                </div> 
                                 <!-- /.card-body -->               
                                 <div class="card-footer">
                                     <button type="submit" id="submit" class="btn btn-primary">Update</button>
@@ -79,6 +121,9 @@
             let title = $("#title").val();
             let code = $("#code").val();
             let value = $("#value").val();
+            let type = $("#type").val();
+            let min_order_amt = $("#min_order_amt").val();
+            let is_one_time = $("#is_one_time").val();
             let _token = "{{ csrf_token() }}";
             console.log(id);
             console.log(title);
@@ -92,6 +137,9 @@
                     title:title,
                     code:code,
                     value:value,
+                    type:type,
+                    is_one_time:is_one_time,
+                    min_order_amt:min_order_amt,
                     _token:_token
                 },
                 success:function(response){  

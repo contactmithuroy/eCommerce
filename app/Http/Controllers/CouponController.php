@@ -49,6 +49,11 @@ class CouponController extends Controller
         $coupon->code = strtoupper($request->code);
         $coupon->value = ($request->value);
         $coupon->status = 1;
+
+        $coupon->type = $request->type;
+        $coupon->min_order_amt = $request->min_order_amt;
+        $coupon->is_one_time = $request->is_one_time;
+        
         $coupon->save();
 
         return response()->json(TRUE);
@@ -88,6 +93,11 @@ class CouponController extends Controller
             $coupon->title = ucfirst($request->title);
             $coupon->code = strtoupper($request->code);
             $coupon->value = $request->value;
+
+            $coupon->type = $request->type;
+            $coupon->min_order_amt = $request->min_order_amt;
+            $coupon->is_one_time = $request->is_one_time;
+
             $coupon->save();
             return response()->json(TRUE);
         }

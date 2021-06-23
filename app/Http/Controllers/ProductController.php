@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\Admin;
 use App\Models\Size;
 use App\Models\Color;
+use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Product_attribute;
 use Illuminate\Http\Request;
@@ -37,7 +38,8 @@ class ProductController extends Controller
         $categories = Category::where('status','1')->get();
         $colors = Color::where('status','1')->get();
         $sizes = Size::where('status','1')->get();
-        return view('admin.product.create',compact(['categories','colors','sizes']));
+        $brands = Brand::where('status','1')->get();
+        return view('admin.product.create',compact(['categories','colors','sizes','brands']));
     }
 
     /**
@@ -58,7 +60,7 @@ class ProductController extends Controller
     //     'warranty'=>'required',
     //     'category'=>'required',
     //     ]);
-
+    // dd($request->all());
     $product = new Product();
       
     $product->category_id = $request->category_id;
@@ -73,6 +75,13 @@ class ProductController extends Controller
     $product->description = $request->description;
     $product->keywords = $request->keywords;
     $product->published_at = Carbon::now();
+    $product->lead_time = $request->lead_time;
+    $product->tax = $request->tax;
+    $product->tax_type = $request->tax_type;
+    $product->is_promo = $request->is_promo;
+    $product->is_featured = $request->is_featured;
+    $product->is_discounted = $request->is_discounted;
+    $product->is_trending = $request->is_trending;
 
       $product->slug = Str::slug($request->name,'-');
         if(Product::whereSlug($product->slug)->exists() ){
@@ -113,7 +122,8 @@ class ProductController extends Controller
         $categories = Category::where('status','1')->get();
         $colors = Color::where('status','1')->get();
         $sizes = Size::where('status','1')->get();
-        return view('admin.product.edit',compact(['product','categories','colors','sizes']));
+        $brands = Brand::where('status','1')->get();
+        return view('admin.product.edit',compact(['product','categories','colors','sizes','brands']));
     }
     /**
      * Update the specified resource in storage.
@@ -139,6 +149,14 @@ class ProductController extends Controller
         $product->short_description = $request->short_description;
         $product->description = $request->description;
         $product->keywords = $request->keywords;
+
+        $product->lead_time = $request->lead_time;
+        $product->tax = $request->tax;
+        $product->tax_type = $request->tax_type;
+        $product->is_promo = $request->is_promo;
+        $product->is_featured = $request->is_featured;
+        $product->is_discounted = $request->is_discounted;
+        $product->is_trending = $request->is_trending;
 
         $product->slug = Str::slug($request->name,'-');
         if(Product::whereSlug($product->slug)->exists() ){

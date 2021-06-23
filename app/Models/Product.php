@@ -16,6 +16,10 @@ class Product extends Model
         return $this->belongsTo('App\Models\Admin','user');
     }
 
+    public function brand(){
+        return $this->belongsTo('App\Models\Brand','id');
+    }
+
     public function attributes(){
         return $this->hasMany(productAtt::class,'product_id', 'id');
     }

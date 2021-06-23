@@ -19,13 +19,16 @@
                 <div class="card card-primary">
                    <div class="row">                            <!-- form start -->
                         <div class=" col-md-12 table-responsive table--no-card m-b-30">
-                            <table class="table table-borderless table-striped table-earning">
+                            <table class="table table-borderless">
                                 <thead>
                                     <tr>
                                         <th>Id</th>
                                         <th>Coupon Name</th>
                                         <th>Coupon Code</th>
                                         <th>Coupon Value</th>
+                                        <th>Min Order Ammount</th>
+                                        <th>Type</th>
+                                        <th>Is One Time</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -36,6 +39,21 @@
                                         <td>{{ $coupon->title }}</td>
                                         <td>{{ $coupon->code }}</td>
                                         <td>{{ $coupon->value }}Tk</td>
+                                        <td>{{ $coupon->min_order_amt }}</td>
+                                        <td>
+                                            @if($coupon->type == 'per')
+                                            <span class="badge badge-secondary">Percentage</span>
+                                            @else
+                                            <span class="badge badge-warning">Value</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if($coupon->is_one_time == 1)
+                                            <span class="badge badge-success">One Time</span>
+                                            @else
+                                            <span class="badge badge-danger">Multipale Time</span>
+                                            @endif
+                                        </td>
                                         <td class="d-flex">
                                             <a href="{{ route('coupon.edit', [$coupon->id]) }}" class="btn btn-primary mr-2"> 
                                                 <i class="fas fa-edit"></i> </a>
