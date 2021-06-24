@@ -10,7 +10,7 @@
             <div class="card-header mt-3">
               
               <div class=" d-flex justify-content-between align-item-center ">
-                    <h3 class="card-title">All Category </h3>
+                    <h3 class="card-title">Category with Child</h3>
                     <a href="{{ route('category.create') }}" class="btn btn-primary"> Add Category</a>
               </div>
             </div>
@@ -18,8 +18,10 @@
             <div class="card-body p-0">
                 <div class="card card-primary">
                    <div class="row"> 
+                       @foreach ($mainCategory as $mainCategories)
                        <div class=" col-md-12 table-responsive table--no-card m-b-30">
                         <table class="table table-borderless table-striped table-earning">
+                            <h3 class="heddingbox">{{ strtoupper($mainCategories->name) }}</h3>
                             <thead>
                                 <tr>
                                     <th>Id</th>
@@ -32,50 +34,53 @@
                             </thead>
                             <tbody>
                                 @foreach ($categories as $category)
-                                <tr>
-                                    <td>{{ $category->id }}</td>
-                                    <td>
-                                        @if($category->image)
-                                        <div style="max-width:70px; max-height:70px; over-flow:hidden;">
-                                            <img src="{{ asset($category->image) }}" class="img-fluid">
-                                        </div>
-                                        @endif
-                                    </td>
-                                    <td>{{ $category->name }}</td>
-                                    <td>
-                                        @if($category->parent_category_id == 0)
-                                        <span class="badge badge-primary">Parrent</span>
-                                        @else
-                                        <span class="badge badge-warning">Child</span>
-                                        @endif
-                                    </td>
-                                    <td id="slug">{{ $category->created_at->format('d M, Y') }}</td>
-                                    <td class="d-flex">
-                                        <a href="{{ route('category.edit', [$category->id]) }}" class="btn btn-primary mr-2"> 
-                                            <i class="fas fa-edit"></i> </a>
-                                        </a>
-                                        @if(($category->status) == 1)
-                                            <a href="{{ route('category.status', [$category->id,'0']) }}" class="btn btn-success mr-2"> 
-                                                <i class="fas fa-unlock"></i> </a>
+                                @if(($mainCategories->id ) == ($category->parent_category_id))
+                                    <tr>
+                                        <td>{{ $category->id }}</td>
+                                        <td>
+                                            @if($category->image)
+                                            <div style="max-width:70px; max-height:70px; over-flow:hidden;">
+                                                <img src="{{ asset($category->image) }}" class="img-fluid">
+                                            </div>
+                                            @endif
+                                        </td>
+                                        <td>{{ $category->name }}</td>
+                                        <td>
+                                            @if($category->parent_category_id == 0)
+                                            <span class="badge badge-primary">Parrent</span>
+                                            @else
+                                            <span class="badge badge-warning">Child</span>
+                                            @endif
+                                        </td>
+                                        <td id="slug">{{ $category->created_at->format('d M, Y') }}</td>
+                                        <td class="d-flex">
+                                            <a href="{{ route('category.edit', [$category->id]) }}" class="btn btn-primary mr-2"> 
+                                                <i class="fas fa-edit"></i> </a>
                                             </a>
+                                            @if(($category->status) == 1)
+                                                <a href="{{ route('category.status', [$category->id,'0']) }}" class="btn btn-success mr-2"> 
+                                                    <i class="fas fa-unlock"></i> </a>
+                                                </a>
 
-                                        @elseif(($category->status) == 0)
-                                            <a href="{{ route('category.status', [$category->id,'1']) }}" class="btn btn-warning mr-2"> 
-                                                <i class="fas fa-lock"></i> </a>
-                                            </a>
-                                        @endif
-                                        <form action="{{ route('category.destroy',[$category->id]) }}" method="POST">
-                                            @method('DELETE')
-                                            @csrf
-                                            <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i> </button>                                                
-                                        </form>
-                                    </td>
-                                    </tr>
+                                            @elseif(($category->status) == 0)
+                                                <a href="{{ route('category.status', [$category->id,'1']) }}" class="btn btn-warning mr-2"> 
+                                                    <i class="fas fa-lock"></i> </a>
+                                                </a>
+                                            @endif
+                                            <form action="{{ route('category.destroy',[$category->id]) }}" method="POST">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i> </button>                                                
+                                            </form>
+                                        </td>
+                                        </tr>
+                                    @endif
                                     @endforeach
 
                             </tbody>
                         </table>
                     </div>
+                       @endforeach
                         
                    </div>
                 </div>
@@ -87,7 +92,9 @@
 @endsection
 @section('style')
     <style>
-        
+        .heddingbox{
+            padding: 10px 10px ;
+        }
     </style>
 @endsection
 @section('action')

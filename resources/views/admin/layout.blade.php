@@ -5,7 +5,7 @@
     <!-- Required meta tags-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-   
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Title Page-->
     <title>@yield('page_title')</title>
@@ -92,11 +92,23 @@
                             <a href="{{ route('admin.dashboard') }}">
                                 <i class="fas fa-tachometer-alt"></i>Dashboard</a>
                         </li>
-                        <li class="@yield('category_select')">
+                        {{-- <li class="@yield('category_select')">
                             <a href="{{ route('category.index') }}">
                                 <i class="fas fa-list"></i>Category</a>
+                        </li> --}}
+                        <li class="has-sub @yield('category_select')">
+                            <a class="js-arrow" href="#">
+                                <i class="fas fa-list"></i>Category </a>
+                                
+                            <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                <li>
+                                    <a href="{{ route('category.index') }}">Main Category</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('category.child') }}">Child Category</a>
+                                </li>
+                            </ul>
                         </li>
-                    
                         <li class="@yield('product_select')">
                             <a href="{{ route('product.index') }}">
                                 <i class="fas fa-cart-plus"></i>Products</a>
@@ -173,8 +185,8 @@
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
                         <div class="header-wrap">
-                            <form class="form-header" action="" method="POST">
-                               
+                            <form class="form-header" action="@yield('action')" method="POST">
+                                @yield('input')
                             </form>
                             <div class="header-button ">
                                 
@@ -253,7 +265,8 @@
     </div>
 
     <!-- Jquery JS-->
-    <script src="{{ asset('admin') }}/vendor/jquery-3.2.1.min.js"></script>
+    {{-- <script src="{{ asset('admin') }}/vendor/jquery-3.2.1.min.js"></script> --}}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <!-- Bootstrap JS-->
     <script src="{{ asset('admin') }}/vendor/bootstrap-4.1/popper.min.js"></script>
     <script src="{{ asset('admin') }}/vendor/bootstrap-4.1/bootstrap.min.js"></script>

@@ -9,6 +9,7 @@ use App\Http\Controllers\ColorController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductAttController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\AutocompliteController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,11 +25,12 @@ Route::group(['middleware'=>'admin_auth'],function(){
     Route::get('admin/dashboard',[AdminController::class,'dashboard'])->name('admin.dashboard');
 
     Route::get('admin/category',[CategoryController::class,'index'])->name('category.index');
+    Route::get('admin/category/child',[CategoryController::class,'childCategory'])->name('category.child');
     Route::get('admin/category/create',[CategoryController::class,'create'])->name('category.create');
     Route::post('admin/category/store',[CategoryController::class,'store'])->name('category.store');
     Route::delete('admin/category/{category}',[CategoryController::class,'destroy'])->name('category.destroy');
     Route::get('admin/category/edit/{category}', [CategoryController::class,'edit'])->name('category.edit');
-    Route::put('admin/category/update', [CategoryController::class,'update'])->name('category.update');
+    Route::post('admin/category/update', [CategoryController::class,'update'])->name('category.update');
     Route::get('admin/category/status/{id}/{status}',[CategoryController::class,'status'])->name('category.status');
     
     Route::resource('admin/product',ProductController::class);
@@ -72,6 +74,11 @@ Route::group(['middleware'=>'admin_auth'],function(){
     // Route::get('/admin/category/{category}/edit',[ProductAttributeController::class,'edit'])->name('productAttribute.edit');
     // Route::delete('admin/product/delete/{id}',[ProductAttributeController::class,'delete'])->name('productAttribute.delete');
     // Route::get('admin/product/status/{id}/{status}',[ProductAttributeController::class,'status'])->name('productAttribute.status');
+
+    Route::get('/admin/search',[AutocompliteController::class,'index']);
+    Route::post('/admin/search',[AutocompliteController::class,'create'])->name('category.search');
+
+
 
 
 });

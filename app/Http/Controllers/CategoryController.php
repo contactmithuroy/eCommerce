@@ -16,10 +16,15 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-        return view('admin.category.index',compact('categories'));
+        $categories = Category::where('parent_category_id','0')->get();
+        return view('admin.category.index',compact(['categories']));
     }
-
+    public function childCategory()
+    {
+        $categories = Category::all();
+        $mainCategory = Category::where('parent_category_id','0')->get();
+        return view('admin.category.child',compact(['categories','mainCategory']));
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -27,7 +32,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.category.create');
+        $categories = Category::where('parent_category_id',0)->get();
+        return view('admin.category.create',compact('categories'));
     }
 
     /**
@@ -38,6 +44,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'name'=>'required'
         ]);
@@ -46,6 +53,19 @@ class CategoryController extends Controller
         $category->name = ucfirst($request->name);
         $category->slug = Str::slug($request->name,'-');
         $category->status = 1;
+
+        $category->parent_category_id =$request->parent_category_id;  
+
+        if(isset($request->image)){
+            if($request->hasFile('image')){
+                $image = $request->image;
+                $imageNewName = Time().".".$image->getClientOriginalExtension();
+                $image->move('storage/category/',$imageNewName);
+                $files = 'storage/category/'.$imageNewName;
+            } 
+            $category->image = $files;
+        }
+
         if(Category::whereSlug($category->slug)->exists() ){
             $category->slug = "{$category->slug}_" . rand(0,500);
         }
@@ -75,7 +95,8 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        return view('admin.category.edit',compact('category'));
+        $categories = Category::where('parent_category_id',0)->get();
+        return view('admin.category.edit',compact(['category','categories']));
     }
 
     /**
@@ -92,12 +113,24 @@ class CategoryController extends Controller
         ]);
 
         if($category = Category::find($request->id)){
+
             $category->name = ucfirst($request->name);
+            $category->parent_category_id = $request->parent_category_id;
             $category->slug = Str::slug($request->name,'-');
-    
             if(Category::whereSlug($category->slug)->exists() ){
                 $category->slug = "{$category->slug}_" . rand(0,500);
             }
+
+            if(isset($request->image)){
+                if($request->hasFile('image')){
+                    $image = $request->image;
+                    $imageNewName = Time().".".$image->getClientOriginalExtension();
+                    $image->move('storage/category/',$imageNewName);
+                    $files = 'storage/category/'.$imageNewName;
+                } 
+                $category->image = $files;
+            }
+
             $category->save();
             return response()->json(TRUE);
         }
