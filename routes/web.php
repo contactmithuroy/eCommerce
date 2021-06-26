@@ -10,6 +10,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductAttController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\AutocompliteController;
+use App\Http\Controllers\TaxController;
+use App\Http\Controllers\ajaxController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -54,6 +56,9 @@ Route::group(['middleware'=>'admin_auth'],function(){
     Route::get('admin/brand/status/{id}/{status}',[BrandController::class,'status'])->name('brand.status');
     Route::get('admin/brand/delete/{id}',[BrandController::class,'destroy'])->name('brand.delete');
 
+    Route::resource('admin/tax',TaxController::class);
+    Route::delete('admin/tax/delete/{id}',[TaxController::class,'delete'])->name('tax.delete'); 
+    Route::get('admin/tax/{id}/{status}',[TaxController::class,'status'])->name('tax.status');
 
     Route::resource('admin/product_attribute',ProductAttController::class);
     Route::get('admin/product_attribute',[ProductAttController::class,'index'])->name('attribute.index');

@@ -137,6 +137,12 @@
                                 <i class="fas fa-braille"></i>Product_attribute</a>
                         </li>
 
+                        <li class="@yield('tax')">
+                            <a href="{{ route('tax.index') }}">
+                                <i class="fas fa-braille"></i>Tax</a>
+                        </li>
+    
+                        
                         <li>
                             <a href="{{ route('admin.logout') }}">
                                 <i class="fas fa-sign-out-alt"></i>Logout</a>
