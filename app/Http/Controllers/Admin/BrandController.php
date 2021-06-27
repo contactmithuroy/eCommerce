@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Brand;
+use App\Http\Controllers\Controller;
+use App\Models\Admin\Brand;
 use Illuminate\Http\Request;
 use Session;
 class BrandController extends Controller
@@ -50,9 +51,20 @@ class BrandController extends Controller
 
             $brand->brand = $request->brand;
             $brand->image = $files;
+
+            if(($request->home) !== null ){
+                $brand->home =1;  
+            }else{
+                $brand->home =0; 
+            }
             
         }else{
             $brand->brand = $request->brand;
+            if(($request->home) !== null ){
+                $brand->home =1;  
+            }else{
+                $brand->home =0; 
+            }
         }
         $brand->save();
         Session::flash('success','Brand name has been add successfully!');
@@ -105,9 +117,20 @@ class BrandController extends Controller
 
             $brand->brand = $request->brand;
             $brand->image = $files;
+
+            if(($request->home) !== null ){
+                $brand->home =1;  
+            }else{
+                $brand->home =0; 
+            }
             
         }else{
             $brand->brand = $request->brand;
+            if(($request->home) !== null ){
+                $brand->home = 1;  
+            }else{
+                $brand->home = 0; 
+            }
         }
         $brand->save();
         Session::flash('success','Brand name  has been update successfully!');

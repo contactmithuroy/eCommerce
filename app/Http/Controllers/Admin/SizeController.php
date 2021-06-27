@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Session;
 use Illuminate\Support\Facades\Str;
-use App\Models\Size;
+use App\Models\Admin\Size;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class SizeController extends Controller
 {

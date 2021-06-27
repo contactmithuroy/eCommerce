@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\productAtt;
+use App\Models\Admin\productAtt;
 use Illuminate\Http\Request;
-
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use Session;
-use App\Models\Size;
-use App\Models\Color;
-use App\Models\Product;
-use App\Models\Tax;
+use App\Models\Admin\Size;
+use App\Models\Admin\Color;
+use App\Models\Admin\Product;
+use App\Models\Admin\Tax;
 
 
 class ProductAttController extends Controller

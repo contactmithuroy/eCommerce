@@ -1,18 +1,19 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use Session;
-use App\Models\Category;
-use App\Models\Admin;
-use App\Models\Size;
-use App\Models\Color;
-use App\Models\Brand;
-use App\Models\Product;
-use App\Models\Tax;
-use App\Models\Product_attribute;
+use App\Models\Admin\Category;
+use App\Models\Admin\Admin;
+use App\Models\Admin\Size;
+use App\Models\Admin\Color;
+use App\Models\Admin\Brand;
+use App\Models\Admin\Product;
+use App\Models\Admin\Tax;
+use App\Models\Admin\Product_attribute;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 

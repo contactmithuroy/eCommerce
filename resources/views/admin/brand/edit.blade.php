@@ -62,6 +62,16 @@
                                             </div>
                                          </div>
 
+                                         <div class="col-md-10">
+                                            <div class="form-check form-switch">
+                                                @if($brand->home == 1)
+                                                <input class="form-check-input" name="home" type="checkbox" id="home" checked>
+                                                @else
+                                                <input class="form-check-input" name="home"  type="checkbox" id="home">
+                                                @endif
+                                                <label class="form-check-label" for="home">Is show your home page?</label>
+                                            </div>
+                                        </div>
                                     </div>
                                     <!-- /.card-body -->               
                                     <div class="card-footer">

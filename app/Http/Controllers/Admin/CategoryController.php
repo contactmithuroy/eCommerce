@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Session;
-use App\Models\Category;
+use App\Models\Admin\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
@@ -55,7 +56,11 @@ class CategoryController extends Controller
         $category->status = 1;
 
         $category->parent_category_id =$request->parent_category_id;  
-
+        if(($request->home) !== null ){
+            $category->home =1;  
+        }else{
+            $category->home =0; 
+        }
         if(isset($request->image)){
             if($request->hasFile('image')){
                 $image = $request->image;
@@ -121,6 +126,12 @@ class CategoryController extends Controller
                 $category->slug = "{$category->slug}_" . rand(0,500);
             }
 
+            if(($request->home) !== null ){
+                $category->home =1;  
+            }else{
+                $category->home =0; 
+            }
+            
             if(isset($request->image)){
                 if($request->hasFile('image')){
                     $image = $request->image;
@@ -150,7 +161,7 @@ class CategoryController extends Controller
             Session::flash('success','Category has been delete successfully!');
             return redirect()->route('category.index');
         }
-    }
+    } 
 
     public function status(Request $request, $id , $status)
     {

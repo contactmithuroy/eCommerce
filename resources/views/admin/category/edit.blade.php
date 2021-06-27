@@ -65,6 +65,17 @@
                                         </div>
                                     </div>
                                     @endif
+                                    
+                                    <div class="col-md-8">
+                                        <div class="form-check form-switch">
+                                            @if($category->home == 1)
+                                            <input class="form-check-input" name="home" type="checkbox" id="home" checked>
+                                            @else
+                                            <input class="form-check-input" name="home"  type="checkbox" id="home">
+                                            @endif
+                                            <label class="form-check-label" for="home">Is show your home page?</label>
+                                        </div>
+                                    </div>
                                 </div>
                                       <!-- /.card-body -->     
                                 <div class="card-footer">
@@ -114,6 +125,7 @@
                 success:function(response){  
                     $("#update_category")[0].reset();
                     $('#s_message').removeClass('hide');
+                    $('#s_message').removeAttr('checked');
                     setTimeout(function(){  
                         $('#s_message').fadeOut("Slow");  
                     }, 5000);  

@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Session;
-use App\Models\Color;
+use App\Models\Admin\Color;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ColorController extends Controller
 {

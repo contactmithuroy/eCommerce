@@ -76,6 +76,12 @@
                                            </div>
                                         </div>
                                      </div>
+                                    <div class="col-md-8">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" name="home" type="checkbox" id="home" checked>
+                                            <label class="form-check-label" for="home">Is show your home page?</label>
+                                        </div>
+                                    </div>
                                 </div>
                         
                                 <!-- /.card-body -->               
@@ -124,6 +130,7 @@ $("#create_category").submit(function(e){
         success:function(response){  
             $("#create_category")[0].reset();
             $('#s_message').removeClass('hide');
+            $('#s_message').removeAttr('checked');
             setTimeout(function(){  
                 $('#s_message').fadeOut("Slow");  
             }, 5000);  
