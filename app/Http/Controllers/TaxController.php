@@ -116,12 +116,22 @@ class TaxController extends Controller
     public function delete($tax)
     {
         if($tax){
-            $tax=Tax::find($tax)->delete();
-            Session::flash('success','Tax has been delete successfully!');
+            $tax = Tax::find($tax);
+            if($tax){
+                $tax->delete();
+                Session::flash('success','Tax has been delete successfully!');
+                return redirect()->route('tax.index');
+            }else{
+                Session::flash('error','Tax has not been deleted!');
+                return redirect()->route('tax.index');
+            }
+        }else{
+            Session::flash('error','Get some error!');
             return redirect()->route('tax.index');
         }
+       
     }
- 
+
     public function status(Request $request, $id , $status)
     {
         $tax = Tax::find($id);
@@ -130,5 +140,4 @@ class TaxController extends Controller
         Session::flash('success','Tax status changed!');
         return redirect()->route('tax.index');
     }
-
 }

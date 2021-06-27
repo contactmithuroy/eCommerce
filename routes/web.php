@@ -57,8 +57,8 @@ Route::group(['middleware'=>'admin_auth'],function(){
     Route::get('admin/brand/delete/{id}',[BrandController::class,'destroy'])->name('brand.delete');
 
     Route::resource('admin/tax',TaxController::class);
-    Route::delete('admin/tax/delete/{id}',[TaxController::class,'delete'])->name('tax.delete'); 
-    Route::get('admin/tax/{id}/{status}',[TaxController::class,'status'])->name('tax.status');
+    Route::get('admin/tax/delete/{id}',[TaxController::class,'delete'])->name('tax.delete');
+    Route::get('admin/tax/status/{id}/{status}',[TaxController::class,'status'])->name('tax.status');
 
     Route::resource('admin/product_attribute',ProductAttController::class);
     Route::get('admin/product_attribute',[ProductAttController::class,'index'])->name('attribute.index');
