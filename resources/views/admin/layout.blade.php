@@ -109,10 +109,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="@yield('product_select')">
-                            <a href="{{ route('product.index') }}">
-                                <i class="fas fa-cart-plus"></i>Products</a>
-                        </li>
+                      
                         <li class="@yield('coupon_select')">
                             <a href="{{ route('coupon.index') }}">
                                 <i class="fas fa-tags"></i>Coupon</a>
@@ -141,7 +138,16 @@
                             <a href="{{ route('tax.index') }}">
                                 <i class="fas fa-braille"></i>Tax</a>
                         </li>
-    
+
+                        <li class="@yield('product_select')">
+                            <a href="{{ route('product.index') }}">
+                                <i class="fas fa-cart-plus"></i>Products</a>
+                        </li>
+
+                        <li class="@yield('customer')">
+                            <a href="{{ route('customer.index') }}">
+                                <i class="fas fa-users"></i>Customer</a>
+                        </li>
                         
                         <li>
                             <a href="{{ route('admin.logout') }}">

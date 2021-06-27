@@ -185,8 +185,13 @@ class ProductController extends Controller
      */
     public function delete($product)
     {
+        
         if($product){
-            $product = Product::find($product)->delete();
+            $product = Product::find($product);
+            if(file_exists(public_path($product->image))){ //if have this type of path has exiting
+                unlink(public_path("{$product->image}")); // have exiting then delete this file
+            }
+            $product->delete();
             Session::flash('success','product has been delete successfully!');
             return redirect()->route('product.index');
         }

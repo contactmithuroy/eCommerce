@@ -128,7 +128,11 @@ class BrandController extends Controller
     public function destroy($id)
     {
         if($id){
-            Brand::find($id)->delete();
+            $brand = Brand::find($id);
+            if(file_exists(public_path($brand->image))){ //if have this type of path has exiting
+                unlink(public_path("{$brand->image}")); // have exiting then delete this file
+            }
+            $brand->delete();
             Session::flash('success','Brand has been delete successfully!');
             return redirect()->route('brand.index');
         }
