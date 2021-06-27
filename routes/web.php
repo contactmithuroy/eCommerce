@@ -12,15 +12,19 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\AutocompliteController;
 use App\Http\Controllers\Admin\TaxController;
 use App\Http\Controllers\Admin\CustomerController;
+
+//-----Frontend Controller----------------------------
+use App\Http\Controllers\Front\FrontController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// -----Frond End Route---------------------------------------------------------
+Route::get('/',[FrontController::class,'index']);
+
+// --------------------------------------------------------------
 
 Route::group(['middleware'=>'admin_auth'],function(){
     
