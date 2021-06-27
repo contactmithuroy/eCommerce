@@ -111,22 +111,28 @@
                      <hr>
                      <div class="row">
                    
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                            <div class="form-group">
                               <label for="lead_time"> Lead_time</label>
                               <input type="text" name="lead_time" value="{{ $product->lead_time }}" class="form-control" id="lead_time" placeholder="Enter lead_time">
                            </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                            <div class="form-group">
-                              <label for="tax"> Tax</label>
-                              <input type="text" name="tax" value="{{ $product->tax }}"  class="form-control" id="tax" placeholder="Enter tax" >
-                           </div>
-                        </div>
-                        <div class="col-md-4">
-                           <div class="form-group">
-                              <label for="tax_type"> Tax_type</label>
-                              <input type="text" name="tax_type" value="{{ $product->tax_type }}"  class="form-control" id="tax_type" placeholder="Enter tax_type" >
+                              <label for="tax">Tax</label>
+                              <select name="tax" id="tax" class="form-control" required>
+                                 {{-- 
+                                 <option value="" style="display: none" selected >Please select</option>
+                                 --}}
+                                 <option value="0">Tax Free</option>
+                                 @foreach ($taxes as $tax)
+                                 @if(($tax->id) == ($product->tax) )
+                                 <option value="{{ $tax->id }}" style="display: none" selected >{{ $tax->tax_description }}</option>
+                                 @else
+                                 <option value="{{ $tax->id }}">{{ $tax->tax_description }}</option>
+                                 @endif
+                                 @endforeach
+                              </select>
                            </div>
                         </div>
                         <div class="col-md-3">

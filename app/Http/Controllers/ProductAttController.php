@@ -11,6 +11,7 @@ use Session;
 use App\Models\Size;
 use App\Models\Color;
 use App\Models\Product;
+use App\Models\Tax;
 
 
 class ProductAttController extends Controller

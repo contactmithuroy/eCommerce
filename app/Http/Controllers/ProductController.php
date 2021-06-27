@@ -11,6 +11,7 @@ use App\Models\Size;
 use App\Models\Color;
 use App\Models\Brand;
 use App\Models\Product;
+use App\Models\Tax;
 use App\Models\Product_attribute;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -39,7 +40,8 @@ class ProductController extends Controller
         $colors = Color::where('status','1')->get();
         $sizes = Size::where('status','1')->get();
         $brands = Brand::where('status','1')->get();
-        return view('admin.product.create',compact(['categories','colors','sizes','brands']));
+        $taxes = Tax::where('status','1')->get();
+        return view('admin.product.create',compact(['categories','colors','sizes','brands','taxes']));
     }
 
     /**
@@ -77,7 +79,7 @@ class ProductController extends Controller
     $product->published_at = Carbon::now();
     $product->lead_time = $request->lead_time;
     $product->tax = $request->tax;
-    $product->tax_type = $request->tax_type;
+    // $product->tax_type = $request->tax_type;
     $product->is_promo = $request->is_promo;
     $product->is_featured = $request->is_featured;
     $product->is_discounted = $request->is_discounted;
@@ -123,7 +125,8 @@ class ProductController extends Controller
         $colors = Color::where('status','1')->get();
         $sizes = Size::where('status','1')->get();
         $brands = Brand::where('status','1')->get();
-        return view('admin.product.edit',compact(['product','categories','colors','sizes','brands']));
+        $taxes = Tax::where('status','1')->get();
+        return view('admin.product.edit',compact(['product','categories','colors','sizes','brands','taxes']));
     }
     /**
      * Update the specified resource in storage.
@@ -152,7 +155,7 @@ class ProductController extends Controller
 
         $product->lead_time = $request->lead_time;
         $product->tax = $request->tax;
-        $product->tax_type = $request->tax_type;
+        // $product->tax_type = $request->tax_type;
         $product->is_promo = $request->is_promo;
         $product->is_featured = $request->is_featured;
         $product->is_discounted = $request->is_discounted;

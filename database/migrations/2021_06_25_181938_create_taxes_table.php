@@ -17,6 +17,7 @@ class CreateTaxesTable extends Migration
             $table->id();
             $table->string('tax_description');
             $table->string('tax_value');
+            $table->integer('status');
             $table->timestamps();
         });
     }

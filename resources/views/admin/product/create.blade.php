@@ -89,13 +89,25 @@
                      </div>
                      <hr>
                      <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                            <div class="form-group">
                               <label for="lead_time"> Lead_time</label>
                               <input type="text" name="lead_time"  class="form-control" id="lead_time" placeholder="Enter lead_time">
                            </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
+                           <div class="form-group">
+                              <label for="tax">Tax</label>
+                              <select name="tax" id="tax" class="form-control" required>
+                                 <option value="" style="display: none" selected >Please select</option>
+                                 <option value="0">Tax Free</option>
+                                 @foreach ($taxes as $tax)
+                                 <option value="{{ $tax->id }}">{{ $tax->tax_description }}</option>
+                                 @endforeach
+                              </select>
+                           </div>
+                        </div>
+                        {{-- <div class="col-md-4">
                            <div class="form-group">
                               <label for="tax"> Tax</label>
                               <input type="text" name="tax"  class="form-control" id="tax" placeholder="Enter tax" >
@@ -106,7 +118,7 @@
                               <label for="tax_type"> Tax_type</label>
                               <input type="text" name="tax_type"  class="form-control" id="tax_type" placeholder="Enter tax_type" >
                            </div>
-                        </div>
+                        </div> --}}
                         <div class="col-md-3">
                            <div class="form-group">
                               <label for="is_promo">Is_promo</label>
