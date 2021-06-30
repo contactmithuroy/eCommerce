@@ -10,4 +10,8 @@ class Category extends Model
     use HasFactory;
     // public $timestamps = false;
     protected $primarykey='id';
+
+    public function products(){
+        return $this->hasMany(Product::class);
+    }
 }
