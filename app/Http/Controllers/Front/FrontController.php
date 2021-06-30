@@ -9,6 +9,7 @@ use App\Models\Admin\Product;
 use App\Models\Admin\ProductAtt;
 use App\Models\Admin\Size;
 use App\Models\Admin\Color;
+use App\Models\Admin\Brand;
 use Illuminate\Support\Facades\DB;
 
 class FrontController extends Controller
@@ -23,7 +24,16 @@ class FrontController extends Controller
         $fourCategories = $allCategories->splice(0);
         
         $categories = Category::where('home',1)->take(5)->get();
+        $discounters = Product::where('is_discounted',1)->where('status',1)->take(8)->get();
+        $features = Product::where('is_featured',1)->where('status',1)->take(8)->get();
+        $trendies = Product::where('is_trending',1)->where('status',1)->take(8)->get();
 
-        return view('front.index',compact(['firstCategories','fourCategories','categories']));
+
+        $brands = Brand::where('status',1)->where('home',1)->take(8)->get();
+
+        // echo "<pre>";
+        // echo($features);
+        // die();
+        return view('front.index',compact(['firstCategories','fourCategories','categories','brands','discounters','features','trendies']));
     }
 }
