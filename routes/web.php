@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\AutocompliteController;
 use App\Http\Controllers\Admin\TaxController;
 use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\Admin\HomeBannerController;
 
 //-----Frontend Controller----------------------------
 use App\Http\Controllers\Front\FrontController;
@@ -63,6 +64,13 @@ Route::group(['middleware'=>'admin_auth'],function(){
     Route::resource('admin/tax',TaxController::class);
     Route::get('admin/tax/delete/{id}',[TaxController::class,'delete'])->name('tax.delete');
     Route::get('admin/tax/status/{id}/{status}',[TaxController::class,'status'])->name('tax.status');
+
+
+    Route::POST('admin/brand/{brand}',[HomeBannerController::class,'update'])->name('homeBanner.update');
+    Route::resource('admin/banner',HomeBannerController::class);
+    Route::get('admin/banner/delete/{id}',[HomeBannerController::class,'delete'])->name('banner.delete');
+    Route::get('admin/banner/status/{id}/{status}',[HomeBannerController::class,'status'])->name('banner.status');
+    
 
     Route::get('admin/customer/status/{id}/{status}',[CustomerController::class,'status'])->name('customer.status');
     Route::get('admin/customer/delete/{id}',[CustomerController::class,'destroy'])->name('customer.delete');

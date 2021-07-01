@@ -143,7 +143,10 @@
                             <a href="{{ route('product.index') }}">
                                 <i class="fas fa-cart-plus"></i>Products</a>
                         </li>
-
+                        <li class="@yield('banner')">
+                            <a href="{{ route('banner.index') }}">
+                                <i class="fas fa-cart-plus"></i>Banners</a>
+                        </li>
                         <li class="@yield('customer')">
                             <a href="{{ route('customer.index') }}">
                                 <i class="fas fa-users"></i>Customer</a>
