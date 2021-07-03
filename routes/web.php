@@ -24,6 +24,7 @@ use App\Http\Controllers\Front\FrontController;
 
 // -----Frond End Route---------------------------------------------------------
 Route::get('/',[FrontController::class,'index']);
+Route::get('product/{slug}',[FrontController::class,'product'])->name('product.detail');
 
 // --------------------------------------------------------------
 

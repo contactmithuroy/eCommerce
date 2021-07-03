@@ -111,27 +111,27 @@
                           @foreach ($category->products->take(8) as $product)
                             <li>
                               <figure>
-                                <a class="aa-product-img" href="#"><img src="{{ asset($product->image) }}" alt="polo shirt img"></a>
+                                <a class="aa-product-img" href="{{ route('product.detail',[$product->slug]) }}"><img src="{{ asset($product->image) }}" alt="polo shirt img"></a>
                                 <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                                 <figcaption>
-                                  <h4 class="aa-product-title"><a href="#">{{ $product->name }}</a></h4>
+                                  <h4 class="aa-product-title"><a href="{{ route('product.detail',[$product->slug]) }}">{{ $product->name }}</a></h4>
                                   <span class="aa-product-price">
                                     ${{ isset($product->attributes[0]) ? $product->attributes[0]->price : 0 }}
                                   </span>
                                   <br>
                                   <span class="aa-product-price">
-                                    {{ isset($product->attributes[0]) ? $product->attributes[0]->color->color.', ' : '' }}
+                                    ${{ isset($product->attributes[0]) ? $product->attributes[0]->color->color.', ' : '' }}
                                   </span>
                                   <span class="aa-product-price">
                                     {{ isset($product->attributes[0]) ? $product->attributes[0]->size->size : '' }}
                                   </span>
                                 </figcaption>
                               </figure>                         
-                              <div class="aa-product-hvr-content">
+                              {{-- <div class="aa-product-hvr-content">
                                 <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                                 <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                                 <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                              </div>
+                              </div> --}}
                               <!-- product badge -->
                               <span class="aa-badge aa-sold-out" href="#">Sold Out!</span>
                             </li>
@@ -189,10 +189,10 @@
                       @foreach ($discounters as $product)
                         <li>
                           <figure>
-                            <a class="aa-product-img" href="{{ $product->slug }}"><img src="{{ asset($product->image) }}" alt="polo shirt img"></a>
-                            <a class="aa-add-card-btn"href="{{ $product->slug }}"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                            <a class="aa-product-img" href="{{ route('product.detail',[$product->slug]) }}"><img src="{{ asset($product->image) }}" alt="polo shirt img"></a>
+                            <a class="aa-add-card-btn"href="{{ route('product.detail',[$product->slug]) }}"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                             <figcaption>
-                              <h4 class="aa-product-title"><a href="{{ $product->slug }}">{{ $product->name }}</a></h4>
+                              <h4 class="aa-product-title"><a href="{{ route('product.detail',[$product->slug]) }}">{{ $product->name }}</a></h4>
                               <span class="aa-product-price">
                                 ${{ isset($product->attributes[0]) ? $product->attributes[0]->price : 0 }}  
                               </span><span class="aa-product-price"><del>
@@ -227,10 +227,10 @@
                     <!-- start single product item -->
                     <li>
                       <figure>
-                        <a class="aa-product-img" href="{{ $product->slug }}"><img src="{{ asset($product->image) }}" alt="polo shirt img"></a>
-                        <a class="aa-add-card-btn"href="{{ $product->slug }}"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                        <a class="aa-product-img" href="{{ route('product.detail',[$product->slug]) }}"><img src="{{ asset($product->image) }}" alt="polo shirt img"></a>
+                        <a class="aa-add-card-btn"href="{{ route('product.detail',[$product->slug]) }}"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                          <figcaption>
-                          <h4 class="aa-product-title"><a href="{{ $product->slug }}">{{ $product->name }}</a></h4>
+                          <h4 class="aa-product-title"><a href="{{ route('product.detail',[$product->slug]) }}">{{ $product->name }}</a></h4>
                           <span class="aa-product-price">
                             ${{ isset($product->attributes[0]) ? $product->attributes[0]->price: 0 }}
                           </span><span class="aa-product-price"><del>
@@ -263,10 +263,10 @@
                     <!-- start single product item -->
                     <li>
                       <figure>
-                        <a class="aa-product-img" href="{{ $product->slug }}"><img src="{{ asset($product->image) }}" alt="polo shirt img"></a>
-                        <a class="aa-add-card-btn"href="{{ $product->slug }}"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                        <a class="aa-product-img" href="{{ route('product.detail',[$product->slug]) }}"><img src="{{ asset($product->image) }}" alt="polo shirt img"></a>
+                        <a class="aa-add-card-btn"href="{{ route('product.detail',[$product->slug]) }}"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                          <figcaption>
-                          <h4 class="aa-product-title"><a href="{{ $product->slug }}">{{ $product->name }}</a></h4>
+                          <h4 class="aa-product-title"><a href="{{ route('product.detail',[$product->slug]) }}">{{ $product->name }}</a></h4>
                           <span class="aa-product-price">
                             ${{ isset($product->attributes[0]) ? $product->attributes[0]->price : 0 }}  
                           </span><span class="aa-product-price"><del>

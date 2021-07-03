@@ -40,4 +40,25 @@ class FrontController extends Controller
         // die();
         return view('front.index',compact(['firstCategories','fourCategories','banners','categories','brands','discounters','features','trendies']));
     }
+
+    public function product($slug){
+        $product= Product::where('status',1)->where('slug',$slug)->first();
+        $related = Product::orderBy('created_at','desc')
+                            ->where('category_id',$product->category_id)
+                            ->where('status',1)
+                            ->where('id','!=',$product->id)
+                            ->take(15)
+                            ->get();
+        return view('front.product-detail',compact(['product','related']));
+    }
+
+
+
+
+    public function prx($array){
+        echo "<pre>";
+        // echo($array);
+        // echo $array->name;
+        die();
+    }
 }
