@@ -18,7 +18,7 @@ class HomeBannerController extends Controller
      */
     public function index()
     {
-        $banners = HomeBanner::where('status',1)->orderBy('created_at','DESC')->take(5)->get();
+        $banners = HomeBanner::orderBy('created_at','DESC')->take(5)->get();
         return view('admin.home_banner.index',compact('banners'));
     }
 
@@ -146,8 +146,31 @@ class HomeBannerController extends Controller
      * @param  \App\Models\HomeBanner  $homeBanner
      * @return \Illuminate\Http\Response
      */
-    public function destroy(HomeBanner $homeBanner)
+    public function delete($id)
     {
-        //
+        if($id){
+            $homeBanner = HomeBanner::find($id);
+            if($homeBanner){
+                $homeBanner->delete();
+                Session::flash('success','HomeBanner has been delete successfully!');
+                return redirect()->route('banner.index');
+            }else{
+                Session::flash('error','HomeBanner has not been deleted!');
+                return redirect()->route('banner.index');
+            }
+        }else{
+            Session::flash('error','Get some error!');
+            return redirect()->route('banner.index');
+        }
+       
+    }
+
+    public function status(Request $request, $id , $status)
+    {
+        $homeBanner = HomeBanner::find($id);
+        $homeBanner->status = $status;
+        $homeBanner->save();
+        Session::flash('success','Home Banner status changed!');
+        return redirect()->route('banner.index');
     }
 }

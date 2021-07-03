@@ -145,7 +145,7 @@
                         </li>
                         <li class="@yield('banner')">
                             <a href="{{ route('banner.index') }}">
-                                <i class="fas fa-cart-plus"></i>Banners</a>
+                                <i class="fas fa-band-aid"></i>Banners</a>
                         </li>
                         <li class="@yield('customer')">
                             <a href="{{ route('customer.index') }}">

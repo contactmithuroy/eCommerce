@@ -23,7 +23,7 @@ class CategoryController extends Controller
     public function childCategory()
     {
         $categories = Category::all();
-        $mainCategory = Category::where('parent_category_id','0')->get();
+        $mainCategory = Category::all();
         return view('admin.category.child',compact(['categories','mainCategory']));
     }
     /**
@@ -33,7 +33,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $categories = Category::where('parent_category_id',0)->get();
+        $categories = Category::where('status',1)->get();
         return view('admin.category.create',compact('categories'));
     }
 
@@ -100,7 +100,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        $categories = Category::where('parent_category_id',0)->get();
+        $categories = Category::where('status',1)->get();
         return view('admin.category.edit',compact(['category','categories']));
     }
 
@@ -169,6 +169,6 @@ class CategoryController extends Controller
         $category->status = $status;
         $category->save();
         Session::flash('success','Category status changed!');
-        return redirect()->route('category.index');
+        // return redirect()->route('category.index');
     }
 }

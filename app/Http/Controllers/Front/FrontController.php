@@ -10,18 +10,22 @@ use App\Models\Admin\ProductAtt;
 use App\Models\Admin\Size;
 use App\Models\Admin\Color;
 use App\Models\Admin\Brand;
+use App\Models\Admin\HomeBanner;
 use Illuminate\Support\Facades\DB;
 
 class FrontController extends Controller
 {
     public function index(){
 
+        
         $allCategories = Category::where('status',1)
                                     ->where('home',1)
                                     ->take(5)
                                     ->get();
         $firstCategories = $allCategories->splice(0,1);
         $fourCategories = $allCategories->splice(0);
+
+        $banners = HomeBanner::where('status',1)->take(5)->get();
         
         $categories = Category::where('home',1)->take(5)->get();
         $discounters = Product::where('is_discounted',1)->where('status',1)->take(8)->get();
@@ -34,6 +38,6 @@ class FrontController extends Controller
         // echo "<pre>";
         // echo($features);
         // die();
-        return view('front.index',compact(['firstCategories','fourCategories','categories','brands','discounters','features','trendies']));
+        return view('front.index',compact(['firstCategories','fourCategories','banners','categories','brands','discounters','features','trendies']));
     }
 }
