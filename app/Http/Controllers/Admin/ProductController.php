@@ -14,6 +14,7 @@ use App\Models\Admin\Brand;
 use App\Models\Admin\Product;
 use App\Models\Admin\Tax;
 use App\Models\Admin\Product_attribute;
+use App\Models\Admin\ProductImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -63,7 +64,7 @@ class ProductController extends Controller
     //     'warranty'=>'required',
     //     'category'=>'required',
     //     ]);
-    // dd($request->all());
+    // dd($request->all())
     $product = new Product();
       
     $product->category_id = $request->category_id;
@@ -99,6 +100,20 @@ class ProductController extends Controller
 
     }
     $product->save();
+    $current_id = $product->id;
+    if($request->hasFile('child_images')){
+        $images = $request->child_images;
+        foreach ($images as $image) {
+            $imageNewName = Time()."i".rand(0,1000).".".$image->getClientOriginalExtension();
+            $image->move('storage/product/child/',$imageNewName);
+            $image = 'storage/product/child/'.$imageNewName;
+            ProductImage::create([
+                'image'=>$image,
+                'product_id'=>$current_id,
+            ]);
+        }
+        
+    }
     Session::flash('success','Product has been add successfully!');
     return redirect()->route('product.create');
 }
@@ -174,6 +189,29 @@ class ProductController extends Controller
             $product->image = 'storage/product/'.$imageNewName;
         }
         $product->save();
+        $current_id = $request->id;
+        if($request->hasFile('child_images')){
+            $images = $request->child_images;
+            $productImages = ProductImage::where('product_id',$request->id)->get();
+            
+            foreach ($productImages as $value) {
+                if (file_exists($value->image)){
+                        @unlink($value->image);
+                    }
+                $value->delete();
+            }
+            // $productImages->delete();
+            foreach ($images as $image) {
+                $imageNewName = Time()."i".rand(0,1000).".".$image->getClientOriginalExtension();
+                $image->move('storage/product/child/',$imageNewName);
+                $image = 'storage/product/child/'.$imageNewName;               
+                ProductImage::create([
+                    'image'=>$image,
+                    'product_id'=>$current_id,
+                ]);
+            }
+            
+        }
         Session::flash('success','Product has been update successfully!');
         return redirect()->route('product.index');
 }
@@ -191,6 +229,14 @@ class ProductController extends Controller
             $product = Product::find($product);
             if(file_exists(public_path($product->image))){ //if have this type of path has exiting
                 unlink(public_path("{$product->image}")); // have exiting then delete this file
+            }
+           
+            $productImages = ProductImage::where('product_id',$product)->get();
+            foreach ($productImages as $value) {
+                if (file_exists($value->image)){
+                    @unlink($value->image);
+                }
+            $value->delete();
             }
             $product->delete();
             Session::flash('success','product has been delete successfully!');

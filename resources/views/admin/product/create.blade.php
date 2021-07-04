@@ -74,11 +74,11 @@
                          </div>
                          <div class="col-md-6">
                             <div class="form-group">
-                               <label for="productImage">Image</label>
+                               <label for="product_image">Main Image</label>
                                <div class="input-group">
                                   <div class="custom-file">
-                                     <input type="file" name="product_image" class="custom-file-input" id="productImage" required>
-                                     <label class="custom-file-label" for="productImage">Choose Image</label>
+                                     <input type="file" name="product_image" class="custom-file-input" id="product_image" required>
+                                     <label class="custom-file-label" for="product_image">Choose Image</label>
                                   </div>
                                   <div class="input-group-append">
                                      {{-- <span class="input-group-text" id="">Upload</span> --}}
@@ -86,6 +86,21 @@
                                </div>
                             </div>
                          </div>
+                         <div class="col-md-6">
+                           <div class="form-group">
+                              <label for="child_images">Child Images</label>
+                              <span style="color:red; font-size:10px">*You can upload multipale image.</span>
+                              <div class="input-group">
+                                 <div class="custom-file">
+                                    <input type="file" name="child_images[]" class="custom-file-input" id="child_images" multiple >
+                                    <label class="custom-file-label" for="child_images">Choose Image</label>
+                                 </div>
+                                 <div class="input-group-append">
+                                    {{-- <span class="input-group-text" id="">Upload</span> --}}
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
                      </div>
                      <hr>
                      <div class="row">

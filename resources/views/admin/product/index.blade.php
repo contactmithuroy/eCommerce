@@ -40,6 +40,7 @@
                                                 <img src="{{ asset($product->image) }}" class="img-fluid">
                                             </div>    
                                         </td>
+        
                                         <td>{{ $product->name }}</td>
                                         <td>{{ $product->brand }}</td>
                                         <td>{{ $product->model }}</td>

@@ -24,6 +24,18 @@
                                 </div>    
                             </td>
                         </tr>
+                        @if(isset($product->productImages[0]))
+                        <tr>
+                            <th style="width: 200px">Product Images</th>
+                            <td>
+                                <div class="d-flex justify-content-between" style="max-width:100px; max-height:100px; over-flow:hidden; margin-center:auto">
+                                    @foreach ($product->productImages as $value)
+                                        <img src="{{ asset($value->image) }}" class="img-fluid mr-5">
+                                    @endforeach
+                                </div>    
+                            </td>
+                        </tr>
+                        @endif
                         <tr>
                             <th>Name</th>
                             <td>{{ $product->name }}</td>

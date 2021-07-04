@@ -102,10 +102,32 @@
                            </div>
                         </div>
                         <div class="col-md-4 mb-5 mt-3">
-                           <div style="max-width:200px; max-height:200px; over-flow:hidden;">
+                           <div style="max-width:150px; max-height:150px; over-flow:hidden;">
                               <img src="{{ asset($product->image) }}" class="img-fluid">
                            </div>
                         </div>
+                        <div class="col-md-6">
+                           <div class="form-group">
+                              <label for="child_images">Child Images</label>
+                              <span style="color:red; font-size:10px">*You can upload multipale image.</span>
+                              <div class="input-group">
+                                 <div class="custom-file">
+                                    <input type="file" name="child_images[]" class="custom-file-input" id="child_images" multiple >
+                                    <label class="custom-file-label" for="child_images">Choose Image</label>
+                                 </div>
+                                 <div class="input-group-append">
+                                    {{-- <span class="input-group-text" id="">Upload</span> --}}
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-md-12 mb-5 mt-3">
+                           <div class="d-flex justify-content-between" style="max-width:100px; max-height:100px; over-flow:hidden; margin-center:auto">
+                              @foreach ($product->productImages as $value)
+                                 <img src="{{ asset($value->image) }}" class="img-fluid mr-5">
+                              @endforeach
+                           </div>    
+                        </div>    
                      </div>
 
                      <hr>
