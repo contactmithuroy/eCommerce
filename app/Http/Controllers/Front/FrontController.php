@@ -11,8 +11,9 @@ use App\Models\Admin\Size;
 use App\Models\Admin\Color;
 use App\Models\Admin\Brand;
 use App\Models\Admin\HomeBanner;
+use App\Models\Admin\Cart;
 use Illuminate\Support\Facades\DB;
-
+use Carbon\Carbon;
 class FrontController extends Controller
 {
     public function index(){
@@ -28,6 +29,7 @@ class FrontController extends Controller
         $banners = HomeBanner::where('status',1)->take(5)->get();
         
         $categories = Category::where('home',1)->take(5)->get();
+
         $discounters = Product::where('is_discounted',1)->where('status',1)->take(8)->get();
         $features = Product::where('is_featured',1)->where('status',1)->take(8)->get();
         $trendies = Product::where('is_trending',1)->where('status',1)->take(8)->get();
@@ -52,12 +54,68 @@ class FrontController extends Controller
         return view('front.product-detail',compact(['product','related']));
     }
 
+    public function add_to_cart(Request $request){
+
+        if($request->session()->has('FRONT_USER_LOGIN')){
+            $user_id = $request->session()->has('FRONT_USER_LOGIN');
+            $user_type = "Reg";
+        }else {
+            $user_id = getUserTemId();
+            $user_type = "Not_Reg";
+        }
+        
+        $quantity = $request->quantity;
+        $product_id = $request->product_id;
+        $product_attr = ProductAtt::where('product_id', $request->product_id)
+                            ->whereHas('size', function($query) use($request){
+                                    return $query->where('size', $request->size);
+                            })
+                            ->whereHas('color', function($query) use($request){
+                                    return $query->where('color', $request->color);
+                            })
+                            ->first();
+                          
+        $productAtt_id = isset($product_attr->id) ? $product_attr->id : null;
+       
+         //data check
+         $check =  Cart::where('user_id',$user_id)
+                        ->where('user_type',$user_type)
+                        ->where('product_id',$product_id)
+                        ->where('productAtt_id',$productAtt_id)
+                        ->first();   
+                        
+                if(!empty( $check)){
+                    $update_id = $check->id;
+                    $update_cart = Cart::where('id',$update_id)->first();
+                    $update_cart->quantity = $quantity;
+                    $update_cart->save();
+                    $massage = "Product has been updated";
+                }else{
+                   
+                    $insert_cart = new Cart();
+                    $insert_cart->user_id = $user_id;
+                    $insert_cart->user_type = $user_type;
+                    $insert_cart->product_id = $product_id;
+                    $insert_cart->productAtt_id = $productAtt_id;
+                    $insert_cart->quantity = $quantity;
+                    $insert_cart->added_on = Carbon::now();
+                    $insert_cart->save();
+                    $massage = "Product has been inserted";
+                   
+                }
+        return response()->json(['massage'=>$massage]);
+        
+
+
+
+
+    }
 
 
 
     public function prx($array){
         echo "<pre>";
-        // echo($array);
+        echo($array);
         // echo $array->name;
         die();
     }

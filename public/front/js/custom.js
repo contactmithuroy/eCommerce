@@ -357,3 +357,19 @@ jQuery(function($){
     
 });
 
+// custom js 
+// function change_product_color_image(img){
+
+//   jQuery('.simpleLens-big-image-container').html('<a data-lens-image="'+img+'" class="simpleLens-lens-image"><img src="'+img+'" class="simpleLens-big-image"></a>');
+
+// }
+
+// function displayColor(size){
+//   // $('#product_color').removeAttr('style');
+//   jQuery('#product_color').hide();
+//   jQuery('.size_'+size).show();
+//   jQuery('.size_link').css('border','1px solid #ddd');
+//   jQuery('#size_'+size).css('border','1px solid black');
+  
+
+// }

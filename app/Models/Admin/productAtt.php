@@ -18,5 +18,10 @@ class productAtt extends Model
     public function product(){
         return $this->belongsTo('App\Models\Admin\product');
     }
+    public function cart()
+    {
+        return $this->hasMany(Cart::class);
+    }
+    
 }
  

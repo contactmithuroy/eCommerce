@@ -16,15 +16,11 @@
                         <div class="simpleLens-big-image-container"><a data-lens-image="{{asset($product->image)}}" class="simpleLens-lens-image"><img src="{{asset($product->image)}}" class="simpleLens-big-image"></a></div>
                       </div>
                       <div class="simpleLens-thumbnails-container">
-                          {{-- @foreach ($product->attributes as $item)
-                            <a data-big-image="{{asset($item->image_attribute)}}" data-lens-image="{{asset($item->image_attribute)}} class="simpleLens-thumbnail-wrapper" href="#">
-                                <img src="{{asset($item->image_attribute)}}">
-                            </a>  
-                          @endforeach --}}
-                          <a data-big-image="{{asset('front')}}/img/view-slider/medium/polo-shirt-1.png" data-lens-image="{{asset('front')}}/img/view-slider/large/polo-shirt-1.png" class="simpleLens-thumbnail-wrapper" href="#">
-                            <img src="{{asset('front')}}/img/view-slider/thumbnail/polo-shirt-1.png">
-                          </a>                                    
-                        
+                          @foreach ($product->productImages as $value)
+                            <a data-big-image="{{asset($value->image)}}" data-lens-image="{{asset($value->image)}}" class="simpleLens-thumbnail-wrapper" href="javascript:void(0)">
+                              <img style="width: 40px; height:40px;" class="mt-3 mr-3" src="{{asset($value->image)}}">
+                            </a>
+                          @endforeach
                       </div>
                     </div>
                   </div>
@@ -34,16 +30,15 @@
                   <div class="aa-product-view-content">
                     <h3>{{ $product->name }}</h3>
                     <div class="aa-price-block">
-                        <span class="aa-product-price">
-                            <del>
-                                ${{ isset($product->attributes[0]) ? $product->attributes[0]->mrp : 0 }}
-                            </del>
-                            
-                        </span>
-                        
-                        <span class="aa-product-view-price">
-                            &nbsp;&nbsp; ${{ isset($product->attributes[0]) ? $product->attributes[0]->price : 0 }}
-                        </span>
+                      <span class="aa-product-view-price">
+                        &nbsp;&nbsp; ${{ isset($product->attributes[0]) ? $product->attributes[0]->price : 0 }}
+                      </span>
+                      <span class="aa-product-price">
+                          <del>
+                              ${{ isset($product->attributes[0]) ? $product->attributes[0]->mrp : 0 }}
+                          </del>
+                      </span>
+                      <!-- product stock -->
                         <p class="aa-product-avilability">
                           Avilability: @if( (isset($product->attributes[0]) ? $product->attributes[0]->quantity : 0) != 0 ) 
                             <span>In stock</span>
@@ -54,50 +49,66 @@
                     </div>
                     <p>Model: <a href="javascript:void(0)">{{ $product->model}}</a></p>
                     <p>{!! $product->short_description !!}</p>
+
+                    <!-- product size operation -->
                     @if(isset($product->attributes[0]->size))
                         <h4>Size</h4>
                         <div class="aa-prod-view-size">
-                            @foreach ($product->attributes as $item)
-                            <a href="javascript:void(0)">{{ $item->size->size }}</a>
+                          @php
+                              $arraySize = [];
+                              foreach ($product->attributes as $item){
+                                $arraySize[] = $item->size->size ;
+                              }
+                              $arraySize = array_unique($arraySize);
+                          @endphp
+                            @foreach ($arraySize as $size)
+                              @if($size != '')
+                                <a href="javascript:void(0)" id="size_{{ $size }}" class="size_link" onclick="showColor('{{$size}}')" >{{ $size }}</a>
+                              @endif
                             @endforeach
                         </div>
                     @endif
+
+                    <!-- product color operation -->
                     @if(isset($product->attributes[0]->color))
                     <h4>Color</h4>
                     <div class="aa-color-tag">
                         @foreach ($product->attributes as $item)
-                        <a href="javascript:void(0)" class="aa-color-{{ strtolower($item->color->color) }}"></a>
+                          <a href="javascript:void(0)" onclick="change_product_color_image('{{ asset($item->image_attribute) }}','{{ $item->color->color }}')" class=" product_color_hide  size_{{ $item->size->size }} aa-color-{{ strtolower($item->color->color) }} "></a>
                         @endforeach
                     </div>
                     @endif
-                    {{-- <h4>Color</h4>
-                    <div class="aa-color-tag">
-                      <a href="#" class="aa-color-green"></a>
-                      <a href="#" class="aa-color-yellow"></a>
-                      <a href="#" class="aa-color-pink"></a>                      
-                      <a href="#" class="aa-color-black"></a>
-                      <a href="#" class="aa-color-white"></a>                      
-                    </div> --}}
+                    <!-- product quantity operation -->
                     <div class="aa-prod-quantity">
                       <form action="">
-                        <select id="" name="">
-                          <option selected="1" value="0">1</option>
-                          <option value="1">2</option>
-                          <option value="2">3</option>
-                          <option value="3">4</option>
-                          <option value="4">5</option>
-                          <option value="5">6</option>
+                        <select id="product_quantity" name="quantity">
+                          <option selected="1" value="1">1</option>
+                          @for($i=2; $i<11; $i++)
+                          <option value="{{ $i }}">{{ $i }}</option>
+                          @endfor
                         </select>
                       </form>
+                      <!-- product Dalivary operation -->
                       <p class="aa-prod-category">
                         Dalivary: <a href="#">Arround {{ $product->lead_time}} days</a>
                       </p>
                     </div>
+                    {{-- hidden input for add to card --}}
+                    <form id="frmAddCart" action="{{ route('add_to_cart.post') }}">
+                      <input type="hidden" id="size_id"  name="size" >
+                      <input type="hidden" id="color_id"  name="color" >
+                      <input type="hidden" id="quantity" name="quantity" >
+                      <input type="hidden" id="product_id" name="product_id" >
+                      @csrf
+                    </form>
+                    {{-- end hidden input --}}
                     <div class="aa-prod-view-bottom">
-                      <a class="aa-add-to-cart-btn" href="#">Add To Cart</a>
-                      <a class="aa-add-to-cart-btn" href="#">Wishlist</a>
-                      <a class="aa-add-to-cart-btn" href="#">Compare</a>
+                      <a class="aa-add-to-cart-btn" href="javascript:void(0)" onclick="addToCard('{{ $product->id }}','{{ (isset($product->attributes[0]) ? $product->attributes[0]->size->id : 0) }}','{{ (isset($product->attributes[0]) ? $product->attributes[0]->size->id : 0) }}')">Add To Cart</a>
+                      <a class="aa-add-to-cart-btn" href="javascript:void(0)">Wishlist</a>
+                      <a class="aa-add-to-cart-btn" href="javascript:void(0)">Compare</a>
                     </div>
+                    {{-- add to card alert --}}
+                    <div id="add_to_card_massage"></div>
                   </div>
                 </div>
               </div>
@@ -328,4 +339,62 @@
   </section>
   <!-- / product category -->
 
+@endsection
+@section('style')
+   <style>
+      .myMargin{
+        margin-top:10px;
+    }
+   </style>
+@endsection
+@section('script')
+  <script>
+
+function change_product_color_image(img,color){
+  $('#color_id').val(color);
+  jQuery('.simpleLens-big-image-container').html('<a data-lens-image="'+img+'" class="simpleLens-lens-image"><img src="'+img+'" class="simpleLens-big-image"></a>');
+
+}
+
+function showColor(size)
+{
+  //  alert(size);
+  $('#size_id').val(size);
+  $('.product_color_hide').hide();
+  $('.size_'+size).show();
+  $('.size_link').css('border','1px solid #ddd');
+  $('#size_'+size).css('border','1px solid red');
+}
+function addToCard(id,size_str_id,color_str_id){
+  var size_id = $('#size_id').val();
+  var color_id = $('#color_id').val();
+
+  if(size_str_id == 0 && color_str_id == 0){
+    size_id = 'no';
+    color_id = 'no';
+ 
+  }
+  if(size_id == '' && size_id != 'no'){
+    $('#add_to_card_massage').html('<div class="alert alert-danger myMargin" role="alert">Select your size please!</div>');
+  }else if(color_id == '' && color_id != 'no' ){
+    $('#add_to_card_massage').html('<div class="alert alert-danger myMargin" role="alert">Select your color please!</div>');
+  }else{
+    
+    $('#product_id').val(id);
+    $('#quantity').val($('#product_quantity').val());
+    console.log($('#frmAddCart').serialize());
+
+    $.ajax({
+        type:"POST",
+        url:$('#frmAddCart').attr('action'),
+        data:$('#frmAddCart').serialize(),  
+        success: function(response){
+            console.log(response);  
+            $('#add_to_card_massage').html('<div class="alert alert-success myMargin" role="alert">'+response.massage+'!</div>');
+        }
+    });
+
+  }
+}
+  </script>  
 @endsection

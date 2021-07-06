@@ -30,7 +30,7 @@
     <!-- Google Font -->
     <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
-
+    @yield('style')
   </head>
   <body> 
    <!-- wpf loader Two -->
@@ -342,6 +342,6 @@
   <script type="text/javascript" src="{{ asset('front') }}/js/nouislider.js"></script>
   <!-- Custom js -->
   <script src="{{ asset('front') }}/js/custom.js"></script> 
-
+  @yield('script')
   </body>
 </html>
