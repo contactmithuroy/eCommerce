@@ -68,3 +68,11 @@ if(empty(session()->has('USER_TEMP_ID'))){
     session()->put('USER_TEMP_ID', $rand);
     return $rand;
 }
+//     if(empty(){
+//         $rand = rand(111111111,000000000);
+//         session()->put('USER_TEMP_ID', $rand);
+//         return $rand; 
+//     }else {
+//         return session()->get('USER_TEMP_ID');
+//     }
+}

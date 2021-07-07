@@ -103,7 +103,7 @@
                     </form>
                     {{-- end hidden input --}}
                     <div class="aa-prod-view-bottom">
-                      <a class="aa-add-to-cart-btn" href="javascript:void(0)" onclick="addToCard('{{ $product->id }}','{{ (isset($product->attributes[0]) ? $product->attributes[0]->size->id : 0) }}','{{ (isset($product->attributes[0]) ? $product->attributes[0]->size->id : 0) }}')">Add To Cart</a>
+                      <a class="aa-add-to-cart-btn" href="javascript:void(0)" onclick="addToCard('{{ $product->id }}','{{ (isset($product->attributes[0]) ? $product->attributes[0]->size->id : 0) }}','{{ (isset($product->attributes[0]) ? $product->attributes[0]->color->id : 0) }}')">Add To Cart</a>
                       <a class="aa-add-to-cart-btn" href="javascript:void(0)">Wishlist</a>
                       <a class="aa-add-to-cart-btn" href="javascript:void(0)">Compare</a>
                     </div>

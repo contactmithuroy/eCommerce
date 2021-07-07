@@ -108,11 +108,26 @@
                         @if(isset($category->products[0]))
                         <ul class="aa-product-catg">
                           <!-- start single product item -->
+                          {{-- hidden input for add to card --}}
+                          <input type="hidden" value="1" id="product_quantity" >
+                          <!-- this is actually confiusion part see on add to card option 
+                          quantity get value on product_quantity id on product page so that's why we need to declear 
+                          constant value in home page-->
+                          <form id="frmAddCart" action="{{ route('add_to_cart.post') }}">
+                            <input type="hidden" id="size_id"  name="size" >
+                            <input type="hidden" id="color_id"  name="color" >
+                            <input type="hidden" id="quantity"  name="quantity" >
+                            <input type="hidden" id="product_id" name="product_id" >
+                            @csrf
+                          </form>
+                          {{-- end hidden input --}}
                           @foreach ($category->products->take(8) as $product)
                             <li>
                               <figure>
                                 <a class="aa-product-img" href="{{ route('product.detail',[$product->slug]) }}"><img src="{{ asset($product->image) }}" alt="polo shirt img"></a>
-                                <a class="aa-add-card-btn"href="javascript:void(0)"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                               <!-- start Add to Cart Option -->
+                                <a class="aa-add-card-btn"href="javascript:void(0)" onclick="homeAddToCard('{{ $product->id }}','{{ (isset($product->attributes[0]) ? $product->attributes[0]->size->size : 0) }}','{{ (isset($product->attributes[0]) ? $product->attributes[0]->color->color : 0) }}')" ><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+
                                 <figcaption>
                                   <h4 class="aa-product-title"><a href="{{ route('product.detail',[$product->slug]) }}">{{ $product->name }}</a></h4>
                                   <span class="aa-product-price">

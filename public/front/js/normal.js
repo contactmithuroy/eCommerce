@@ -24,9 +24,18 @@
   }
 
     /* ----------------------------------------------------------- */
+  /*  13.Home Page ADD TO CARD OPERATION ON PRODUCT PAGE
+  /* ----------------------------------------------------------- */      
+    function homeAddToCard(id,size,color){
+       $('#size_id').val(size);
+        $('#color_id').val(color);
+        //call addd to card function again
+        addToCard(id,size,color)
+    }
+
+    /* ----------------------------------------------------------- */
   /*  13. ADD TO CARD OPERATION ON PRODUCT PAGE
   /* ----------------------------------------------------------- */      
-
   function addToCard(id,size_str_id,color_str_id){
     var size_id = $('#size_id').val();
     var color_id = $('#color_id').val();
