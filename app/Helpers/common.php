@@ -58,11 +58,13 @@ function buildTreeView($arr, $parent, $level=0, $prelevel=-1){
 }
 
  function getUserTemId(){
-    if(session()->has('USER_TEMP_ID') === null){
-        $rand = rand(111111111,000000000);
-        session()->put('USER_TEMP_ID', $rand);
-        return $rand; 
-    }else {
-        return session()->get('USER_TEMP_ID');
-    }
+// session()->forget('USER_TEMP_ID');
+if(!empty(session()->has('USER_TEMP_ID'))){
+    return session()->get('USER_TEMP_ID');
+}
+
+if(empty(session()->has('USER_TEMP_ID'))){
+    $rand = rand(111111111,000000000);
+    session()->put('USER_TEMP_ID', $rand);
+    return $rand;
 }

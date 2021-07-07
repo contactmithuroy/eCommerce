@@ -63,7 +63,7 @@ class FrontController extends Controller
             $user_id = getUserTemId();
             $user_type = "Not_Reg";
         }
-        
+        $user_id = is_array($user_id) ? $user_id[0] : $user_id;
         $quantity = $request->quantity;
         $product_id = $request->product_id;
         $product_attr = ProductAtt::where('product_id', $request->product_id)
@@ -83,7 +83,7 @@ class FrontController extends Controller
                         ->where('product_id',$product_id)
                         ->where('productAtt_id',$productAtt_id)
                         ->first();   
-                        
+                                        
                 if(!empty( $check)){
                     $update_id = $check->id;
                     $update_cart = Cart::where('id',$update_id)->first();
@@ -91,19 +91,22 @@ class FrontController extends Controller
                     $update_cart->save();
                     $massage = "Product has been updated";
                 }else{
-                   
+                    
                     $insert_cart = new Cart();
+                    
                     $insert_cart->user_id = $user_id;
                     $insert_cart->user_type = $user_type;
                     $insert_cart->product_id = $product_id;
                     $insert_cart->productAtt_id = $productAtt_id;
                     $insert_cart->quantity = $quantity;
                     $insert_cart->added_on = Carbon::now();
+                    
                     $insert_cart->save();
+                    return response()->json(['massage'=>$user_id,'r'=>$insert_cart]);
                     $massage = "Product has been inserted";
                    
                 }
-        return response()->json(['massage'=>$massage]);
+        // return response()->json(['massage'=>$massage]);
         
 
 

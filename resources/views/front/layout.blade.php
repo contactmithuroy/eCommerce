@@ -342,6 +342,8 @@
   <script type="text/javascript" src="{{ asset('front') }}/js/nouislider.js"></script>
   <!-- Custom js -->
   <script src="{{ asset('front') }}/js/custom.js"></script> 
+  <!-- My new  js -->
+  <script src="{{ asset('front') }}/js/normal.js"></script>  
   @yield('script')
   </body>
 </html>
