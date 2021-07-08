@@ -1,4 +1,5 @@
 @extends('front.layout')
+@section('cart',$product->name)
 @section('body')
   <!-- product category -->
   <section id="aa-product-details">
@@ -218,7 +219,7 @@
                 <li>
                     <figure>
                       <a class="aa-product-img" href="{{ route('product.detail',[$product->slug]) }}"><img src="{{asset($product->image)}}" alt="polo shirt img"></a>
-                      <a class="aa-add-card-btn"href="{{ route('product.detail',[$product->slug]) }}"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                      <a class="aa-add-card-btn" href="javascript:void(0)" onclick="homeAddToCard('{{ $product->id }}','{{ (isset($product->attributes[0]) ? $product->attributes[0]->size->size : 0) }}','{{ (isset($product->attributes[0]) ? $product->attributes[0]->color->color : 0) }}')" ><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                        <figcaption>
                         <h4 class="aa-product-title"><a href="{{ route('product.detail',[$product->slug]) }}">{{ $product->name }}</a></h4>
                         <span class="aa-product-price">

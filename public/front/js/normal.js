@@ -67,6 +67,41 @@
   
     }
   }
+  /* ----------------------------------------------------------- */
+  /*  13. Update Cart Items Quantity
+  /* ----------------------------------------------------------- */
+  function update_quantity(product_id,size,color,productAtt_id,pice){
+    $('#size_id').val(size);
+    $('#color_id').val(color);
+    $('#product_id').val(product_id);
+    var quantity = $('#quantity_'+product_id+productAtt_id).val();
+    $('#product_quantity').val(quantity);
+    // call to add to function
+    addToCard(product_id,size,color)
+    // change total price
+    $('#total_price_'+product_id+productAtt_id).html(pice*quantity);
+    console.log(product_id);
+    console.log('#quantity_'+product_id+productAtt_id);
+
+    // quantity_{{ $cart_product->id }}{{ isset($cart_product->productAtt_id) ? $cart_product->productAtt_id :0
+
+  }
     /* ----------------------------------------------------------- */
-  /*  13. RELATED ITEM SLIDER (SLICK SLIDER)
+  /*  13. Cart Items Delete
   /* ----------------------------------------------------------- */      
+ function remove_cart_item(id){
+   $('#cart_item_'+id).remove();
+   console.log(id); 
+
+   $.ajax({
+    type:"POST",
+    url:"{{ route('item.delete') }}",
+    data:{
+      cart_id:id,
+    },
+    success: function(response){
+      console.log(response);  
+      $('#responses_massage').html('<div class="alert alert-success myMargin" role="alert">'+response.massage+'!</div>'); 
+  }
+   });
+ }

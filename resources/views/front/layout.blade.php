@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">    
-    <title>Lara Shop | Home</title>
+    <title>@yield('cart')</title>
     
     <!-- Font awesome -->
     <link href="{{ asset('front') }}/css/font-awesome.css" rel="stylesheet">
@@ -95,7 +95,7 @@
                 <ul class="aa-head-top-nav-right">
                   <li><a href="account">My Account</a></li>
                   <li class="hidden-xs"><a href="javascript:void(0)">Wishlist</a></li>
-                  <li class="hidden-xs"><a href="javascript:void(0)">My Cart</a></li>
+                  <li class="hidden-xs"><a href="{{ route('cart.post') }}">My Cart</a></li>
                   <li class="hidden-xs"><a href="javascript:void(0)">Checkout</a></li>
                   <li><a href="" data-toggle="modal" data-target="#login-modal">Login</a></li>
                 </ul>

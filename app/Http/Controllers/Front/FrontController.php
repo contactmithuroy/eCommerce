@@ -38,7 +38,7 @@ class FrontController extends Controller
         $brands = Brand::where('status',1)->where('home',1)->take(8)->get();
 
         // echo "<pre>";
-        // echo($features);
+        // echo($categories);
         // die();
         return view('front.index',compact(['firstCategories','fourCategories','banners','categories','brands','discounters','features','trendies']));
     }
@@ -75,8 +75,7 @@ class FrontController extends Controller
                             })
                             ->first();
                           
-        $productAtt_id = isset($product_attr->id) ? $product_attr->id : null;
-       
+        $productAtt_id = isset($product_attr->id) ? $product_attr->id : null;     
          //data check
          $check =  Cart::where('user_id',$user_id)
                         ->where('user_type',$user_type)
@@ -92,30 +91,51 @@ class FrontController extends Controller
                     $massage = "Product has been updated";
                 }else{
                     
-                    $insert_cart = new Cart();
-                    
+                    $insert_cart = new Cart();                   
                     $insert_cart->user_id = $user_id;
                     $insert_cart->user_type = $user_type;
                     $insert_cart->product_id = $product_id;
                     $insert_cart->productAtt_id = $productAtt_id;
                     $insert_cart->quantity = $quantity;
-                    $insert_cart->added_on = Carbon::now();
-                    
+                    $insert_cart->added_on = Carbon::now();                  
                     $insert_cart->save();
-                    return response()->json(['massage'=>$user_id,'r'=>$insert_cart]);
                     $massage = "Product has been inserted";
                    
                 }
-        // return response()->json(['massage'=>$massage]);
-        
-
-
-
-
+        return response()->json(['massage'=>$massage]);
+        // return response()->json(['massage'=>$user_id,'r'=>$insert_cart]);
     }
 
+    public function cart(Request $request){
 
+        if($request->session()->has('FRONT_USER_LOGIN')){
+            $user_id = $request->session()->has('FRONT_USER_LOGIN');
+            $user_type = "Reg";
+        }else {
+            $user_id = getUserTemId();
+            $user_type = "Not_Reg";
+        }
+        $user_id = is_array($user_id) ? $user_id[0] : $user_id;
 
+        $cart_products = Cart::with('products','attributes')->where('user_id',$user_id)
+                            ->where('user_type',$user_type)
+                            ->orderBy('created_at','DESC')
+                            ->get();
+
+        // prx($cart_products);
+        return view('front.cart',compact('cart_products'));
+    }
+
+    public function delete_item(Request $request){
+        return response()->json(['massage'=>$request->all()]);
+        // $cart = Cart::find($id)->delete();
+        // if($cart){
+        //     return response()->json(['massage'=>'Cart items has been deleted']);
+        // }else{
+        //     return response()->json(['massage'=>'Get somethings error.']);
+        // }
+        
+    }
     public function prx($array){
         echo "<pre>";
         echo($array);
