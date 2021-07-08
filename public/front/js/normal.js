@@ -89,19 +89,15 @@
     /* ----------------------------------------------------------- */
   /*  13. Cart Items Delete
   /* ----------------------------------------------------------- */      
- function remove_cart_item(id){
-   $('#cart_item_'+id).remove();
-   console.log(id); 
+ function remove_cart_item(cart_id,product_id,size,color){
+   $('#cart_item_'+cart_id).remove();
+   console.log(cart_id); 
+  
+  $('#size_id').val(size);
+  $('#color_id').val(color);
+  $('#product_id').val(product_id);
+  $('#product_quantity').val(0);
+  // call to add to function
+  addToCard(product_id,size,color);
 
-   $.ajax({
-    type:"POST",
-    url:"{{ route('item.delete') }}",
-    data:{
-      cart_id:id,
-    },
-    success: function(response){
-      console.log(response);  
-      $('#responses_massage').html('<div class="alert alert-success myMargin" role="alert">'+response.massage+'!</div>'); 
-  }
-   });
  }

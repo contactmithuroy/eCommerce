@@ -53,7 +53,7 @@
                         @endphp
                       </td>
                       {{-- <form action="{{ route('item.delete') }}" id="delete_item">@csrf</form> --}}
-                      <td><a class="remove" href="javascript:void(0)" id="cart_no_{{ $cart_product->id }}" onclick="remove_cart_item('{{ $cart_product->id }}')"><fa class="fa fa-close"></fa></a></td>
+                      <td><a class="remove" href="javascript:void(0)" id="cart_no_{{ $cart_product->id }}" onclick="remove_cart_item('{{ $cart_product->id }}','{{ $cart_product->product_id }}','{{ isset($cart_product->attributes[0]->size) ? $cart_product->attributes[0]->size->size : 0  }}','{{ isset($cart_product->attributes[0]->color) ? $cart_product->attributes[0]->color->color : 0  }}')"><fa class="fa fa-close"></fa></a></td>
                     </tr>
                      @endforeach
                      <div id="responses_massage"></div>

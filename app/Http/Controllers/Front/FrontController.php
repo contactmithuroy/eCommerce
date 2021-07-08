@@ -66,6 +66,7 @@ class FrontController extends Controller
         $user_id = is_array($user_id) ? $user_id[0] : $user_id;
         $quantity = $request->quantity;
         $product_id = $request->product_id;
+        
         $product_attr = ProductAtt::where('product_id', $request->product_id)
                             ->whereHas('size', function($query) use($request){
                                     return $query->where('size', $request->size);
@@ -85,10 +86,15 @@ class FrontController extends Controller
                                         
                 if(!empty( $check)){
                     $update_id = $check->id;
-                    $update_cart = Cart::where('id',$update_id)->first();
-                    $update_cart->quantity = $quantity;
-                    $update_cart->save();
-                    $massage = "Product has been updated";
+                    if($quantity == 0 ){
+                        $c = Cart::where('id',$update_id)->delete();
+                        $massage = "Cart product has been deleted";
+                    }else{
+                        $update_cart = Cart::where('id',$update_id)->first();
+                        $update_cart->quantity = $quantity;
+                        $update_cart->save();
+                        $massage = "Product has been updated";
+                    }
                 }else{
                     
                     $insert_cart = new Cart();                   
@@ -126,16 +132,6 @@ class FrontController extends Controller
         return view('front.cart',compact('cart_products'));
     }
 
-    public function delete_item(Request $request){
-        return response()->json(['massage'=>$request->all()]);
-        // $cart = Cart::find($id)->delete();
-        // if($cart){
-        //     return response()->json(['massage'=>'Cart items has been deleted']);
-        // }else{
-        //     return response()->json(['massage'=>'Get somethings error.']);
-        // }
-        
-    }
     public function prx($array){
         echo "<pre>";
         echo($array);
