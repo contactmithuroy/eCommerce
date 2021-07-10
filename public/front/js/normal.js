@@ -101,3 +101,4 @@
   addToCard(product_id,size,color);
 
  }
+ 

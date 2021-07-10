@@ -124,44 +124,63 @@
                 <!-- <a href="javascript:void(0)"><img src="{{ asset('front') }}/img/logo.jpg" alt="logo img"></a> -->
               </div>
               <!-- / logo  -->
+
+              @php 
+                $getAddToCartTotalItem = getAddToCartTotalItem();
+                $totalCartItem = count($getAddToCartTotalItem);
+                $totalPrice = 0;
+                $moreItem = 0;
+              @endphp
                <!-- cart box -->
               <div class="aa-cartbox">
                 <a class="aa-cart-link" href="#">
                   <span class="fa fa-shopping-basket"></span>
                   <span class="aa-cart-title">SHOPPING CART</span>
-                  <span class="aa-cart-notify">2</span>
+                  <span class="aa-cart-notify">{{ $totalCartItem }}</span>
                 </a>
+                @if($totalCartItem>0)
                 <div class="aa-cartbox-summary">
                   <ul>
-                    <li>
-                      <a class="aa-cartbox-img" href="#"><img src="{{ asset('front') }}/img/woman-small-2.jpg" alt="img"></a>
-                      <div class="aa-cartbox-info">
-                        <h4><a href="#">Product Name</a></h4>
-                        <p>1 x $250</p>
-                      </div>
-                      <a class="aa-remove-product" href="#"><span class="fa fa-times"></span></a>
-                    </li>
-                    <li>
-                      <a class="aa-cartbox-img" href="#"><img src="{{ asset('front') }}/img/woman-small-1.jpg" alt="img"></a>
-                      <div class="aa-cartbox-info">
-                        <h4><a href="#">Product Name</a></h4>
-                        <p>1 x $250</p>
-                      </div>
-                      <a class="aa-remove-product" href="#"><span class="fa fa-times"></span></a>
-                    </li>                    
+                    @foreach ($getAddToCartTotalItem as $cartItem)
+                    @php
+                        $moreItem++;
+                        $totalPrice += (isset($cartItem->attributes[0]) ? $cartItem->attributes[0]->price : 0 ) * ($cartItem->quantity);
+                    @endphp
+                      <li>
+                        <a class="aa-cartbox-img" href="{{$cartItem->products[0]->slug}}"><img src="{{ asset($cartItem->products[0]->image) }}" alt="img"></a>
+                        <div class="aa-cartbox-info">
+                          <h4><a href="{{$cartItem->products[0]->slug}}">
+                            {{$cartItem->products[0]->name}}  
+                            {{-- {{ isset($cartItem->products[0]) ? $cartItem->products[0]->name : '' }}   --}}
+                          </a></h4>
+                          <p>{{ (isset($cartItem->attributes[0]) ? $cartItem->attributes[0]->price : 0 ) }}</p>
+                        </div>
+                        {{-- <a class="aa-remove-product" href="#"><span class="fa fa-times"></span></a> --}}
+                      </li>
+                    @endforeach
+                    @if ($moreItem > 4)
+                      <li>
+                        <a href="{{ route('cart.post') }}"><span style="color: #ff6666">More</span></a>
+                      </li>
+                    @endif
                     <li>
                       <span class="aa-cartbox-total-title">
-                        Total
+                        Total 
                       </span>
                       <span class="aa-cartbox-total-price">
-                        $500
+                        ${{  $totalPrice }}
                       </span>
                     </li>
                   </ul>
-                  <a class="aa-cartbox-checkout aa-primary-btn" href="javascript:void(0)">Checkout</a>
+                  <a class="aa-cartbox-checkout aa-primary-btn" href="#">Checkout</a>
                 </div>
+                @endif
               </div>
               <!-- / cart box -->
+
+
+
+
               <!-- search box -->
               <div class="aa-search-box">
                 <form action="">

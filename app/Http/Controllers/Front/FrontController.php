@@ -14,6 +14,10 @@ use App\Models\Admin\HomeBanner;
 use App\Models\Admin\Cart;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+
+
+
+
 class FrontController extends Controller
 {
     public function index(){

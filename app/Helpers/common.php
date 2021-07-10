@@ -2,6 +2,7 @@
 
 use App\Models\Admin\Category;
 use App\Models\Admin\Product;
+use App\Models\Admin\Cart;
 
 function getData(){
     return "<b>manus </b>";
@@ -56,7 +57,7 @@ function buildTreeView($arr, $parent, $level=0, $prelevel=-1){
     }
     return $html;
 }
-
+// ===============================================================================
  function getUserTemId(){
 // session()->forget('USER_TEMP_ID');
 if(!empty(session()->has('USER_TEMP_ID'))){
@@ -68,11 +69,22 @@ if(empty(session()->has('USER_TEMP_ID'))){
     session()->put('USER_TEMP_ID', $rand);
     return $rand;
 }
-//     if(empty(){
-//         $rand = rand(111111111,000000000);
-//         session()->put('USER_TEMP_ID', $rand);
-//         return $rand; 
-//     }else {
-//         return session()->get('USER_TEMP_ID');
-//     }
+
+}
+// ===============================================================================
+function getAddToCartTotalItem(){
+    if(session()->has('FRONT_USER_LOGIN')){
+        $user_id = session()->has('FRONT_USER_LOGIN');
+        $user_type = "Reg";
+    }else {
+        $user_id = getUserTemId();
+        $user_type = "Not_Reg";
+    }
+    $user_id = is_array($user_id) ? $user_id[0] : $user_id;
+    $cart_products = Cart::with('products','attributes')->where('user_id',$user_id)
+                            ->where('user_type',$user_type)
+                            ->orderBy('created_at','DESC')
+                            ->take(5)
+                            ->get();
+    return $cart_products;
 }
