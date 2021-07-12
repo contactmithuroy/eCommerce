@@ -60,9 +60,33 @@
           url:$('#frmAddCart').attr('action'),
           data:$('#frmAddCart').serialize(),  
           success: function(response){
-              console.log(response);  
+              // console.log(response);  
               $('#add_to_card_massage').html('<div class="alert alert-success myMargin" role="alert">'+response.massage+'!</div>');
-          }
+
+              var totalPrice = 0;
+              if(response.totalCartItem == 0){
+                $('.aa-cart-notify').html(0);
+                $('.aa-cartbox-summary').remove();
+              }else{
+                
+                $('.aa-cart-notify').html(response.totalCartItem);
+
+                var html = '<ul>';
+                $.each(response.cart_products, function(arrayKey,arrayValue){
+                  
+                  console.log(arrayValue);
+                  console.log(arrayValue.products[0].name);
+                  totalPrice = parseInt(totalPrice) + (parseInt(arrayValue.attributes[0].price) * parseInt(arrayValue.quantity));
+                  html += '<li><a class="aa-cartbox-img" href="'+arrayValue.products[0].slug+'"><img src="'+PRODUCT_IMAGE+arrayValue.products[0].image+'" alt="img"></a><div class="aa-cartbox-info"><h4><a href="'+arrayValue.products[0].slug+'">'+arrayValue.products[0].name+'</a></h4><p><span>'+arrayValue.quantity+'&nbsp;X&nbsp;</span>'+arrayValue.attributes[0].price+'</p></div></li>';
+                  
+                });
+            
+            }
+            html += '<li><span class="aa-cartbox-total-title">Total</span><span class="aa-cartbox-total-price">$'+totalPrice+'</span></li>';
+            html += '</ul>';
+            html += '<a class="aa-cartbox-checkout aa-primary-btn" href="#">Checkout</a>';
+            $('.aa-cartbox-summary').html(html);
+        }
       });
   
     }

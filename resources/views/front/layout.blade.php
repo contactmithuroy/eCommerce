@@ -133,13 +133,13 @@
               @endphp
                <!-- cart box -->
               <div class="aa-cartbox">
-                <a class="aa-cart-link" href="#">
+                <a class="aa-cart-link" href="#" id="cart_box">
                   <span class="fa fa-shopping-basket"></span>
                   <span class="aa-cart-title">SHOPPING CART</span>
                   <span class="aa-cart-notify">{{ $totalCartItem }}</span>
                 </a>
-                @if($totalCartItem>0)
                 <div class="aa-cartbox-summary">
+                @if($totalCartItem>0)
                   <ul>
                     @foreach ($getAddToCartTotalItem as $cartItem)
                     @php
@@ -153,7 +153,7 @@
                             {{$cartItem->products[0]->name}}  
                             {{-- {{ isset($cartItem->products[0]) ? $cartItem->products[0]->name : '' }}   --}}
                           </a></h4>
-                          <p>{{ (isset($cartItem->attributes[0]) ? $cartItem->attributes[0]->price : 0 ) }}</p>
+                          <p><span>{{ $cartItem->quantity }}&nbsp;X&nbsp;</span>{{ (isset($cartItem->attributes[0]) ? $cartItem->attributes[0]->price : 0 ) }}</p>
                         </div>
                         {{-- <a class="aa-remove-product" href="#"><span class="fa fa-times"></span></a> --}}
                       </li>
@@ -173,8 +173,8 @@
                     </li>
                   </ul>
                   <a class="aa-cartbox-checkout aa-primary-btn" href="#">Checkout</a>
-                </div>
                 @endif
+              </div>
               </div>
               <!-- / cart box -->
 
@@ -223,6 +223,7 @@
   <!-- Start slider -->
   
   @yield('body')
+
   <!-- footer -->  
   <footer id="aa-footer">
     <!-- footer bottom -->
@@ -364,5 +365,8 @@
   <!-- My new  js -->
   <script src="{{ asset('front') }}/js/normal.js"></script>  
   @yield('script')
+  <script>
+     var PRODUCT_IMAGE = "{{ asset('/') }}";
+  </script>
   </body>
 </html>

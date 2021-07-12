@@ -92,12 +92,12 @@ class FrontController extends Controller
                     $update_id = $check->id;
                     if($quantity == 0 ){
                         $c = Cart::where('id',$update_id)->delete();
-                        $massage = "Cart product has been deleted";
+                        $massage = "Cart product has been Deleted";
                     }else{
                         $update_cart = Cart::where('id',$update_id)->first();
                         $update_cart->quantity = $quantity;
                         $update_cart->save();
-                        $massage = "Product has been updated";
+                        $massage = "Cart product has been Updated";
                     }
                 }else{
                     
@@ -112,7 +112,14 @@ class FrontController extends Controller
                     $massage = "Product has been inserted";
                    
                 }
-        return response()->json(['massage'=>$massage]);
+        // for auto update cart box
+        $cart_products = Cart::with('products','attributes')->where('user_id',$user_id)
+                            ->where('user_type',$user_type)
+                            ->orderBy('created_at','DESC')
+                            ->get();
+
+
+        return response()->json(['massage'=>$massage,'cart_products'=>$cart_products,'totalCartItem'=>count($cart_products)]);
         // return response()->json(['massage'=>$user_id,'r'=>$insert_cart]);
     }
 
