@@ -19,6 +19,7 @@ function getTopNavCat(){
     foreach ($category as $row) {
         $arr[$row->id]['name'] = $row->name;
         $arr[$row->id]['parent_category_id'] = $row->parent_category_id;
+        $arr[$row->id]['slug'] = $row->slug;
     }
 
     $str = buildTreeView($arr,0);
@@ -43,7 +44,8 @@ function buildTreeView($arr, $parent, $level=0, $prelevel=-1){
             }
     
             // $html .= '<li><a href="#">'.$data['name'].'<span class="caret"></span></a>';
-            $html .= '<li><a href="#">'.$data['name'].'<span class=""></span></a>';
+            $html .= '<li><a href="'.url('category').'/'.$data['slug'].'">'.$data['name'].'<span class=""></span></a>';
+            // $html .= '<li><a href="'.$data['slug'].'">'.$data['name'].'<span class=""></span></a>';
             if($level > $prelevel){
                 $prelevel = $level;
             }

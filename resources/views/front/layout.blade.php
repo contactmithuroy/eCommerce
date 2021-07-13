@@ -139,42 +139,42 @@
                   <span class="aa-cart-notify">{{ $totalCartItem }}</span>
                 </a>
                 <div class="aa-cartbox-summary">
-                @if($totalCartItem>0)
-                  <ul>
-                    @foreach ($getAddToCartTotalItem as $cartItem)
-                    @php
-                        $moreItem++;
-                        $totalPrice += (isset($cartItem->attributes[0]) ? $cartItem->attributes[0]->price : 0 ) * ($cartItem->quantity);
-                    @endphp
+                  @if($totalCartItem>0)
+                    <ul>
+                      @foreach ($getAddToCartTotalItem as $cartItem)
+                      @php
+                          $moreItem++;
+                          $totalPrice += (isset($cartItem->attributes[0]) ? $cartItem->attributes[0]->price : 0 ) * ($cartItem->quantity);
+                      @endphp
+                        <li>
+                          <a class="aa-cartbox-img" href="{{$cartItem->products[0]->slug}}"><img src="{{ asset($cartItem->products[0]->image) }}" alt="img"></a>
+                          <div class="aa-cartbox-info">
+                            <h4><a href="{{$cartItem->products[0]->slug}}">
+                              {{$cartItem->products[0]->name}}  
+                              {{-- {{ isset($cartItem->products[0]) ? $cartItem->products[0]->name : '' }}   --}}
+                            </a></h4>
+                            <p><span>{{ $cartItem->quantity }}&nbsp;X&nbsp;</span>{{ (isset($cartItem->attributes[0]) ? $cartItem->attributes[0]->price : 0 ) }}</p>
+                          </div>
+                          {{-- <a class="aa-remove-product" href="#"><span class="fa fa-times"></span></a> --}}
+                        </li>
+                      @endforeach
+                      @if ($moreItem > 4)
+                        <li>
+                          <a href="{{ route('cart.post') }}"><span style="color: #ff6666">More</span></a>
+                        </li>
+                      @endif
                       <li>
-                        <a class="aa-cartbox-img" href="{{$cartItem->products[0]->slug}}"><img src="{{ asset($cartItem->products[0]->image) }}" alt="img"></a>
-                        <div class="aa-cartbox-info">
-                          <h4><a href="{{$cartItem->products[0]->slug}}">
-                            {{$cartItem->products[0]->name}}  
-                            {{-- {{ isset($cartItem->products[0]) ? $cartItem->products[0]->name : '' }}   --}}
-                          </a></h4>
-                          <p><span>{{ $cartItem->quantity }}&nbsp;X&nbsp;</span>{{ (isset($cartItem->attributes[0]) ? $cartItem->attributes[0]->price : 0 ) }}</p>
-                        </div>
-                        {{-- <a class="aa-remove-product" href="#"><span class="fa fa-times"></span></a> --}}
+                        <span class="aa-cartbox-total-title">
+                          Total 
+                        </span>
+                        <span class="aa-cartbox-total-price">
+                          ${{  $totalPrice }}
+                        </span>
                       </li>
-                    @endforeach
-                    @if ($moreItem > 4)
-                      <li>
-                        <a href="{{ route('cart.post') }}"><span style="color: #ff6666">More</span></a>
-                      </li>
-                    @endif
-                    <li>
-                      <span class="aa-cartbox-total-title">
-                        Total 
-                      </span>
-                      <span class="aa-cartbox-total-price">
-                        ${{  $totalPrice }}
-                      </span>
-                    </li>
-                  </ul>
-                  <a class="aa-cartbox-checkout aa-primary-btn" href="#">Checkout</a>
-                @endif
-              </div>
+                    </ul>
+                    <a class="aa-cartbox-checkout aa-primary-btn" href="#">Checkout</a>
+                  @endif
+                </div>
               </div>
               <!-- / cart box -->
 

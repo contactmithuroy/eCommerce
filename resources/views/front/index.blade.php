@@ -123,7 +123,7 @@
                                   </span>
                                   <br>
                                   <span class="aa-product-price">
-                                    ${{ isset($product->attributes[0]) ? $product->attributes[0]->color->color.', ' : '' }}
+                                    {{ isset($product->attributes[0]) ? $product->attributes[0]->color->color.', ' : '' }}
                                   </span>
                                   <span class="aa-product-price">
                                     {{ isset($product->attributes[0]) ? $product->attributes[0]->size->size : '' }}

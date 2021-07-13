@@ -28,7 +28,9 @@ Route::get('product/{slug}',[FrontController::class,'product'])->name('product.d
 Route::post('add_to_cart',[FrontController::class,'add_to_cart'])->name('add_to_cart.post');
 Route::get('demo',[FrontController::class,'add_to_cart']);
 Route::get('cart',[FrontController::class,'cart'])->name('cart.post');
-Route::post('cart/delete-item',[FrontController::class,'delete_item'])->name('item.delete');
+
+Route::get('category/{slug}',[FrontController::class,'category'])->name('category.post');
+
 // --------------------------------------------------------------
 
 Route::group(['middleware'=>'admin_auth'],function(){

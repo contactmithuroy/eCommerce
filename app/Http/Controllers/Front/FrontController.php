@@ -143,6 +143,15 @@ class FrontController extends Controller
         return view('front.cart',compact('cart_products'));
     }
 
+
+    // category Management
+    public function category($slug){
+        $category = Category::where('slug',$slug)->first();
+        // prx($categories);
+        return view('front.category',compact('category'));
+
+    }
+
     public function prx($array){
         echo "<pre>";
         echo($array);
